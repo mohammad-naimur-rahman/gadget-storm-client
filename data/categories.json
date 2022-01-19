@@ -1,0 +1,46 @@
+[
+  {
+    "category": "Smartphone",
+    "link": "/smartphone"
+  },
+  {
+    "category": "Tablet",
+    "link": "/tablet"
+  },
+  {
+    "category": "Laptop",
+    "link": "/laptop"
+  },
+  {
+    "category": "Earphone",
+    "link": "/earphone"
+  },
+  {
+    "category": "DSLR",
+    "link": "/dslr"
+  },
+  {
+    "category": "Action Cam",
+    "link": "/action-cam"
+  },
+  {
+    "category": "Drone",
+    "link": "/drone"
+  },
+  {
+    "category": "Power Bank",
+    "link": "/power-bank"
+  },
+  {
+    "category": "Bluetooth Speaker",
+    "link": "/bluetooth-speaker"
+  },
+  {
+    "category": "Charger and Cable",
+    "link": "/charger-and-cable"
+  },
+  {
+    "category": "Others",
+    "link": "/others"
+  }
+]
