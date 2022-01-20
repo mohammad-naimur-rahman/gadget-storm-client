@@ -10,7 +10,7 @@ const Layout = ({ title, meta, children }) => {
         meta={meta}
       </Head>
       <Nav />
-      <div className="mt-2">{children}</div>
+      <div style={{ marginTop: '56px' }}>{children}</div>
     </div>
   )
 }

@@ -1,12 +1,12 @@
 import DLayout from '@/components/shared/DLayout'
 import React from 'react'
 
-const Dashboard = () => {
+const AddProduct = () => {
   return (
-    <DLayout title="Dashboard">
-      <h1>Dashboard</h1>
+    <DLayout>
+      <h2>Add a product</h2>
     </DLayout>
   )
 }
 
-export default Dashboard
+export default AddProduct

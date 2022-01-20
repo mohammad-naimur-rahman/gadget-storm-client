@@ -1,0 +1,16 @@
+.dashboard-nav {
+  width: 300px;
+  position: fixed;
+  min-height: calc(100vh - 56px);
+  top: 56px;
+  left: 0;
+}
+
+.dashboard-content {
+  margin-top: -56px;
+  padding-left: 300px;
+}
+
+.link-text {
+  width: max-content;
+}
