@@ -5,10 +5,10 @@ import { useForm } from 'react-hook-form'
 
 const InputGrp = ({ label, type, name, required = false, errMsg, placeholder, errors, register }) => {
   return (
-    <div className="py-3">
+    <div className="pt-3 pb-2 input-grp">
       <h5>{label}</h5>
       <input
-        className="form-control"
+        className="input"
         name={name}
         type={type}
         ref={register({ required: required })}
@@ -27,10 +27,10 @@ const AddProduct = () => {
   const onSubmit = (data) => console.log(data)
   return (
     <DLayout>
-      <h3 className="p-2">Add a product</h3>
+      <h3 className="p-2 text-center">Add a product</h3>
       <form className="add-product-form" onSubmit={handleSubmit(onSubmit)}>
         <h5>Select Category</h5>
-        <select onChange={(e) => setCategory(e.target.value)}>
+        <select onChange={(e) => setCategory(e.target.value)} className="input-grp">
           {categories.map((category) => (
             <option key={category.category} value={category.value}>
               {category.category}
@@ -38,17 +38,28 @@ const AddProduct = () => {
           ))}
         </select>
         <InputGrp
+          register={register}
+          errors={errors}
           label="Product Name"
           name="name"
           type="text"
           required={true}
           errMsg="Name is a required field"
           placeholder="Product Name"
-          register={register}
-          errors={errors}
         />
 
-        <button className="btn btn-primary mt-2" type="submit">
+        <InputGrp
+          register={register}
+          errors={errors}
+          label="Brand Name"
+          name="brand"
+          type="text"
+          required={true}
+          errMsg="Brand is a required field"
+          placeholder="Brand Name"
+        />
+
+        <button className="button mt-2" type="submit">
           Add a product
         </button>
       </form>

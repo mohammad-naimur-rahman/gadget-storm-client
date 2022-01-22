@@ -13,6 +13,7 @@ const iconList = Object.keys(Icons)
 library.add(...iconList)
 
 export default function Home({ data }) {
+  console.log(data)
   return (
     <Layout title="Gadget Storm | Home">
       <Categories />
