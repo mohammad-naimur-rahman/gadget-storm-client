@@ -1,46 +1,57 @@
 [
   {
     "category": "Smartphone",
-    "link": "/smartphone"
+    "link": "/smartphone",
+    "value": "smartPhone"
   },
   {
     "category": "Tablet",
-    "link": "/tablet"
+    "link": "/tablet",
+    "value": "tablet"
   },
   {
     "category": "Laptop",
-    "link": "/laptop"
+    "link": "/laptop",
+    "value": "laptop"
   },
   {
     "category": "Earphone",
-    "link": "/earphone"
+    "link": "/earphone",
+    "value": "earphone"
   },
   {
     "category": "DSLR",
-    "link": "/dslr"
+    "link": "/dslr",
+    "value": "dslr"
   },
   {
     "category": "Action Cam",
-    "link": "/action-cam"
+    "link": "/action-cam",
+    "value": "actionCam"
   },
   {
     "category": "Drone",
-    "link": "/drone"
+    "link": "/drone",
+    "value": "drone"
   },
   {
     "category": "Power Bank",
-    "link": "/power-bank"
+    "link": "/power-bank",
+    "value": "powerBank"
   },
   {
     "category": "Bluetooth Speaker",
-    "link": "/bluetooth-speaker"
+    "link": "/bluetooth-speaker",
+    "value": "bluetoothSpeaker"
   },
   {
     "category": "Charger and Cable",
-    "link": "/charger-and-cable"
+    "link": "/charger-and-cable",
+    "value": "chargerAndCable"
   },
   {
     "category": "Others",
-    "link": "/others"
+    "link": "/others",
+    "value": "others"
   }
 ]
