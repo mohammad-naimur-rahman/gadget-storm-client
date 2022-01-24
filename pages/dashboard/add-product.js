@@ -59,6 +59,11 @@ const AddProduct = () => {
           placeholder="Brand Name"
         />
 
+        <h4>Add variants</h4>
+        <button className="btn btn-secondary">
+          <i className="fa fa-plus-circle"></i> Add a new variant
+        </button>
+
         <button className="button mt-2" type="submit">
           Add a product
         </button>
