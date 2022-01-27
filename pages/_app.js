@@ -1,4 +1,4 @@
-import '../styles/globals.scss'
+import '../styles/styles.scss'
 import 'semantic-ui-css/semantic.min.css'
 
 function MyApp({ Component, pageProps }) {
