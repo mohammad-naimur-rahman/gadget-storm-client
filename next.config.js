@@ -1,3 +1,12 @@
 module.exports = {
-  reactStrictMode: true
+  reactStrictMode: true,
+  async redirects() {
+    return [
+      {
+        source: '/dashboard',
+        destination: '/dashboard/add-product',
+        permanent: true
+      }
+    ]
+  }
 }

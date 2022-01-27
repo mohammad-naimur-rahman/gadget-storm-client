@@ -1,0 +1,38 @@
+html,
+body {
+  height: auto !important;
+}
+
+nav {
+  //background-color: $color-primary;
+  height: 60px;
+  overflow: hidden;
+  color: $color-white;
+
+  .nav-input {
+    width: 300px !important;
+
+    input {
+      width: 100%;
+    }
+  }
+
+  img {
+    height: 85%;
+    margin-right: auto !important;
+  }
+
+  a {
+    color: $color-white;
+    transition: all 0.3s ease-in-out;
+    margin: 0 20px;
+
+    &:hover {
+      color: $color-white-2;
+    }
+  }
+}
+
+.layout-container {
+  margin-top: 60px;
+}
