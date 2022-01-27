@@ -1,12 +1,13 @@
 import axios from 'axios'
 import { API_URL } from '@/helpers/API'
 import Layout from '@/components/common/Layout'
+import Categories from '@/components/pageComponents/Homepage/Categories'
 
 export default function Home({ data }) {
   console.log(data)
   return (
-    <Layout>
-      <h1>This is up</h1>
+    <Layout title="Gadget Strom | Home">
+      <Categories />
     </Layout>
   )
 }

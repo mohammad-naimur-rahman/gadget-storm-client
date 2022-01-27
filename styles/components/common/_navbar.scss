@@ -20,6 +20,7 @@ nav {
   img {
     height: 85%;
     margin-right: auto !important;
+    cursor: pointer;
   }
 
   a {
@@ -35,4 +36,54 @@ nav {
 
 .layout-container {
   margin-top: 60px;
+}
+
+.active {
+  font-weight: bold;
+}
+
+.d-navbar {
+  height: 60px;
+  background-color: $color-primary !important;
+  color: $color-white;
+
+  &__logo {
+    margin-right: auto !important;
+  }
+
+  img {
+    height: 85%;
+    margin-right: auto !important;
+    cursor: pointer;
+  }
+}
+
+.d-layout-content {
+  margin-top: 60px;
+  width: 100%;
+  min-height: calc(100vh - 60px);
+
+  .sidenav {
+    width: 200px;
+    background-color: $color-secondary;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+  }
+
+  .content {
+    margin-left: 200px;
+  }
+}
+
+.d-link {
+  color: $color-white;
+  transition: all 0.3s ease-in-out;
+  margin: 0 20px;
+
+  &:hover {
+    color: $color-white-2;
+  }
 }

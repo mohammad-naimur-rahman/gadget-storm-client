@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { Button, Container, Icon, Input, Menu } from 'semantic-ui-react'
+import Navlink from '../Navlink'
 
 const Navbar = () => {
   const [searchQuery, setsearchQuery] = useState('')
@@ -21,24 +22,24 @@ const Navbar = () => {
             />
           </Menu.Item>
           <Menu.Item>
-            <Link href="/dashboard">Dashboard</Link>
+            <Navlink href="/dashboard">Dashboard</Navlink>
           </Menu.Item>
           <Menu.Item>
-            <Link href="/cart" passHref>
+            <Navlink href="/cart" passHref>
               <Button icon color="facebook">
                 <Icon name="cart" />
               </Button>
-            </Link>
+            </Navlink>
           </Menu.Item>
           <Menu.Item>
-            <Link href="/compare" passHref>
+            <Navlink href="/compare" passHref>
               <Button icon color="teal">
                 <Icon name="chart bar" />
               </Button>
-            </Link>
+            </Navlink>
           </Menu.Item>
           <Menu.Item>
-            <Link href="/login">Login</Link>
+            <Navlink href="/login">Login</Navlink>
           </Menu.Item>
         </Container>
       </Menu>

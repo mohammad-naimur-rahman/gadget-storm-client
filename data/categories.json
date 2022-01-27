@@ -1,0 +1,60 @@
+[
+  {
+    "name": "Smartphone",
+    "link": "smartphone",
+    "sku": "smartPhone"
+  },
+  {
+    "name": "Tablet",
+    "link": "tablet",
+    "sku": "tablet"
+  },
+  {
+    "name": "Laptop",
+    "link": "laptop",
+    "sku": "laptop"
+  },
+  {
+    "name": "Earphones",
+    "link": "earphone",
+    "sku": "earphone"
+  },
+  {
+    "name": "Phone Gimbal",
+    "link": "gimbal",
+    "sku": "gimbal"
+  },
+  {
+    "name": "Drone",
+    "link": "drone",
+    "sku": "drone"
+  },
+  {
+    "name": "DSLR Camera",
+    "link": "dslr"
+  },
+  {
+    "name": "Action Cam",
+    "link": "action-cam",
+    "sku": "actionCam"
+  },
+  {
+    "name": "Bluetooth Speaker",
+    "link": "bluetooth-speaker",
+    "sku": "bluetoothSpeaker"
+  },
+  {
+    "name": "Power Bank",
+    "link": "power-bank",
+    "sku": "powerBank"
+  },
+  {
+    "name": "Charger and Cables",
+    "link": "charger-cables",
+    "sku": "chargerAndCables"
+  },
+  {
+    "name": "Others",
+    "link": "others"
+  }
+]
