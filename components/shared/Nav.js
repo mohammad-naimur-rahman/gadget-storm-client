@@ -4,7 +4,7 @@ import Navlink from './Navlink'
 
 const Nav = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-primary position-fixed top-0 left-0 w-100">
       <div className="container-fluid">
         <Link href="/">
           <a className="navbar-brand">Navbar</a>

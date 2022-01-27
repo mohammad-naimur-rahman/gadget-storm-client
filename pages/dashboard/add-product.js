@@ -3,13 +3,13 @@ import React, { useState } from 'react'
 import categories from '@/data/categories.json'
 import { useForm } from 'react-hook-form'
 import { v4 as uuid } from 'uuid'
+import { Button, Input } from 'semantic-ui-react'
 
 const InputGrp = ({ label, type, name, required = false, errMsg, placeholder, errors, register, onChange }) => {
   return (
     <div className="pt-3 pb-2 input-grp">
       <h5>{label}</h5>
-      <input
-        className="input"
+      <Input
         name={name}
         type={type}
         ref={register({ required: required })}
@@ -25,15 +25,7 @@ const InputGrpVariant = ({ label, type, name, required = false, placeholder, val
   return (
     <div className="pb-3 input-grp">
       <h5>{label}</h5>
-      <input
-        className="input"
-        name={name}
-        type={type}
-        placeholder={placeholder}
-        onChange={onChange}
-        value={value}
-        required={required}
-      />
+      <Input name={name} type={type} placeholder={placeholder} onChange={onChange} value={value} required={required} />
     </div>
   )
 }
@@ -51,10 +43,13 @@ const AddProduct = () => {
         id: uuid(),
         ram: '',
         rom: '',
-        price: '',
+        storage: '',
+        storageType: '',
         size: '',
         sizeUnit: '',
-        withoutDiscount: ''
+        basePrice: '',
+        discount: '',
+        price: ''
       }
     ])
     console.log(variants)
@@ -64,6 +59,14 @@ const AddProduct = () => {
     const newInputFields = variants.map((i) => {
       if (id === i.id) {
         i[e.target.name] = e.target.value
+
+        if (i.discount.includes('%')) {
+          i.price = i.basePrice - (i.basePrice * i.discount.split('%')[0]) / 100
+        } else if (typeof +i.discount === 'number') {
+          i.price = i.basePrice - i.discount
+        } else {
+          i.price = i.basePrice
+        }
       }
       return i
     })
@@ -193,10 +196,10 @@ const AddProduct = () => {
                 onChange={(e) => handleVariant(e, variant.id)}
               />
               <h5>Final Price</h5>
-              <p>{variant.price}</p>
-              <button className="btn btn-danger" onClick={() => handleDeleteVariant(variant.id)}>
+              <p className="input">{variant.price}</p>
+              <Button basic color="red" onClick={() => handleDeleteVariant(variant.id)}>
                 <i className="fa fa-times me-2"></i>Delete Variant
-              </button>
+              </Button>
             </div>
           ))}
         {showConditionaly(['smartPhone', 'tablet', 'laptop']) && (
@@ -204,9 +207,9 @@ const AddProduct = () => {
             <i className="fa fa-plus-circle"></i> Add a new variant
           </button>
         )}
-        <button className="button mt-2" type="submit">
+        <Button primary className="button mt-2" type="submit">
           Add a product
-        </button>
+        </Button>
       </form>
     </DLayout>
   )
