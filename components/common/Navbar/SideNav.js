@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import data from '@/data/dashboardSideLinks.json'
 import DNavlink from '../Navlink/DNavlink'
 import { Icon } from 'semantic-ui-react'
@@ -6,22 +6,13 @@ import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarFooter, Side
 import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } from 'react-icons/fa'
 
 const SideNav = () => {
+  const [collapsed, setcollapsed] = useState(false)
   return (
-    <ProSidebar image={false} rtl={false} collapsed={false} toggled={false} breakPoint="md">
+    <ProSidebar image={false} rtl={false} collapsed={collapsed} toggled={false} breakPoint="md" className="sidenav">
       <SidebarHeader>
-        <div
-          style={{
-            padding: '24px',
-            textTransform: 'uppercase',
-            fontWeight: 'bold',
-            fontSize: 14,
-            letterSpacing: '1px',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap'
-          }}
-        >
-          Dashboard
+        <div className="d-flex align-items-center justify-content-between sidenav-header">
+          {!collapsed && <img src="/logo.png" alt="logo" />}
+          <Icon name="bars" size="large" onClick={() => setcollapsed(!collapsed)} className="sidenav-bar" />
         </div>
       </SidebarHeader>
 
@@ -32,13 +23,19 @@ const SideNav = () => {
           </MenuItem>
           <MenuItem icon={<FaGem />}>Components</MenuItem>
         </Menu>
+        <Menu iconShape="square">
+          <MenuItem icon={<FaList />}>
+            <span>UI Elements</span>
+            <span className="badge red">New</span>
+          </MenuItem>
+        </Menu>
         <Menu iconShape="circle">
           <SubMenu suffix={<span className="badge yellow">3</span>} title="With Suffix" icon={<FaRegLaughWink />}>
             <MenuItem>1</MenuItem>
             <MenuItem>2</MenuItem>
             <MenuItem>3</MenuItem>
           </SubMenu>
-          <SubMenu prefix={<span className="badge gray">3</span>} title="With Prefix" icon={<FaHeart />}>
+          <SubMenu suffix={<span className="badge gray">3</span>} title="With Prefix" icon={<FaHeart />}>
             <MenuItem>1</MenuItem>
             <MenuItem>2</MenuItem>
             <MenuItem>3</MenuItem>

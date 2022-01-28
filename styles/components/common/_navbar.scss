@@ -64,17 +64,19 @@ nav {
   min-height: calc(100vh - 60px);
 
   .sidenav {
-    width: 200px;
-    background-color: $color-secondary;
     position: absolute;
     top: 60px;
     left: 0;
     height: calc(100vh - 60px);
     overflow-y: auto;
+
+    &-header {
+      height: 45px;
+    }
   }
 
   .content {
-    margin-left: 200px;
+    margin-left: 270px;
   }
 }
 
@@ -86,4 +88,8 @@ nav {
   &:hover {
     color: $color-white-2;
   }
+}
+
+.sidenav-bar {
+  cursor: pointer;
 }
