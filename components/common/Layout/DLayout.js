@@ -15,7 +15,9 @@ const DLayout = ({ title, meta, children }) => {
         <SideNav collapsed={collapsed} setcollapsed={setcollapsed} />
         <div className="d-flex flex-column d-layout-main">
           <DNavbar collapsed={collapsed} />
-          <div className={`d-layout-content ${collapsed ? 'content-collapsed' : ''}`}>{children}</div>
+          <div className={`d-layout-content ${collapsed ? 'content-collapsed' : ''}`}>
+            <div className="m-2">{children}</div>
+          </div>
         </div>
       </div>
     </>

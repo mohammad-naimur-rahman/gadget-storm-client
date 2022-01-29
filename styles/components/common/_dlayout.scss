@@ -3,16 +3,20 @@
 
   .sidenav {
     position: fixed;
-    top: 0;
+    top: 60px;
     left: 0;
     height: 100vh;
     overflow-y: auto;
 
     .sidenav-header {
-      height: 60px;
+      height: 40px;
 
-      img {
-        height: 60%;
+      h2 {
+        line-height: 40px;
+        margin-top: 12px;
+      }
+
+      .sidenav-bar {
         cursor: pointer;
       }
     }
