@@ -3,16 +3,20 @@ import data from '@/data/dashboardSideLinks.json'
 import DNavlink from '../Navlink/DNavlink'
 import { Icon } from 'semantic-ui-react'
 import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarFooter, SidebarContent } from 'react-pro-sidebar'
-import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } from 'react-icons/fa'
+import { FaTachometerAlt, FaGem, FaList, FaRegLaughWink, FaHeart } from 'react-icons/fa'
+import Link from 'next/link'
 
-const SideNav = () => {
-  const [collapsed, setcollapsed] = useState(false)
+const SideNav = ({ collapsed, setcollapsed }) => {
   return (
     <ProSidebar image={false} rtl={false} collapsed={collapsed} toggled={false} breakPoint="md" className="sidenav">
       <SidebarHeader>
         <div className="d-flex align-items-center justify-content-between sidenav-header">
-          {!collapsed && <img src="/logo.png" alt="logo" />}
-          <Icon name="bars" size="large" onClick={() => setcollapsed(!collapsed)} className="sidenav-bar" />
+          {!collapsed && (
+            <Link href="/" passHref>
+              <img src="/logo.png" alt="logo" />
+            </Link>
+          )}
+          <Icon name="bars" size="large" onClick={() => setcollapsed(!collapsed)} className="sidenav-bar mx-auto" />
         </div>
       </SidebarHeader>
 
@@ -55,25 +59,6 @@ const SideNav = () => {
           </SubMenu>
         </Menu>
       </SidebarContent>
-
-      <SidebarFooter style={{ textAlign: 'center' }}>
-        <div
-          className="sidebar-btn-wrapper"
-          style={{
-            padding: '20px 24px'
-          }}
-        >
-          <a
-            href="https://github.com/azouaoui-med/react-pro-sidebar"
-            target="_blank"
-            className="sidebar-btn"
-            rel="noopener noreferrer"
-          >
-            <FaGithub />
-            <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>View Source</span>
-          </a>
-        </div>
-      </SidebarFooter>
     </ProSidebar>
   )
 }
