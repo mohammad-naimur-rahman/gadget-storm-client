@@ -25,14 +25,14 @@ const Navbar = () => {
             <Navlink href="/dashboard">Dashboard</Navlink>
           </Menu.Item>
           <Menu.Item>
-            <Navlink href="/cart" passHref>
+            <Navlink href="/cart">
               <Button icon color="facebook">
                 <Icon name="cart" />
               </Button>
             </Navlink>
           </Menu.Item>
           <Menu.Item>
-            <Navlink href="/compare" passHref>
+            <Navlink href="/compare">
               <Button icon color="teal">
                 <Icon name="chart bar" />
               </Button>

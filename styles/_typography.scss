@@ -6,6 +6,7 @@ input,
 select {
   margin: 0;
   max-width: 100%;
+  width: 240px;
   -moz-box-flex: 1;
   flex: 1 0 auto;
   outline: 0;
@@ -38,4 +39,6 @@ select {
 label {
   margin-top: 5px;
   margin-right: 12px;
+  width: 150px;
+  font-size: 15px;
 }

@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import DNavbar from '../Navbar/Dnavbar'
 import SideNav from '../Navbar/SideNav'
 
-const DLayout = ({ title, meta, children }) => {
+const DLayout = ({ title, meta, children, className }) => {
   const [collapsed, setcollapsed] = useState(false)
   return (
     <>
@@ -16,7 +16,7 @@ const DLayout = ({ title, meta, children }) => {
         <div className="d-flex flex-column d-layout-main">
           <DNavbar />
           <div className={`d-layout-content ${collapsed ? 'content-collapsed' : ''}`}>
-            <div className="m-2">{children}</div>
+            <div className={`m-2 ${className}`}>{children}</div>
           </div>
         </div>
       </div>
