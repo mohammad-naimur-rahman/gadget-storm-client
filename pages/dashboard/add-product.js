@@ -1,31 +1,82 @@
 import DLayout from '@/components/common/Layout/DLayout'
-import { InputGrp } from '@/components/common/utils/InputGrp'
+import { InputGrp, InputGrpN } from '@/components/common/utils/InputGrp'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Button } from 'semantic-ui-react'
 import Data from '@/data/categories.json'
 import Variants from '@/components/pageComponents/Dashboard/AddProductPage/Variants'
+import { showConditionaly } from '@/helpers/dashboard/add-product-helpers'
+import ReactTooltip from 'react-tooltip'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const AddProductPage = ({ data }) => {
-  const [category, setcategory] = useState('smartPhone')
+  const [category, setcategory] = useState('drone')
   const [variants, setvariants] = useState([])
-  const [preview, setpreview] = useState({})
+  const [priceSchema, setpriceSchema] = useState({
+    basePrice: '',
+    discount: '',
+    price: 0
+  })
+
+  const [image, setimage] = useState([])
+  const [descriptionImage, setdescriptionImage] = useState([])
+
+  const handlePrice = (e) => {
+    const inputFields = {
+      ...priceSchema,
+      [e.target.name]: e.target.value
+    }
+    if (inputFields.discount && inputFields.discount.includes('%')) {
+      inputFields.price = inputFields.basePrice - (inputFields.basePrice * inputFields.discount.split('%')[0]) / 100
+    } else if (inputFields.discount && typeof +inputFields.discount === 'number') {
+      inputFields.price = inputFields.basePrice - inputFields.discount
+    } else {
+      inputFields.price = inputFields.basePrice
+    }
+
+    setpriceSchema(inputFields)
+  }
+
+  const handleImageUpload = (e, limit, imgArrSetter) => {
+    const formData = new FormData()
+    const img = e.target.files
+
+    const imgarr = []
+
+    if (img.length > limit) {
+      toast.error(`You can only upload ${limit} images`)
+      return
+    }
+    toast.info('Uploading image...')
+    for (let i = 0; i < img.length; i++) {
+      formData.append('file', img[i])
+      formData.append('upload_preset', process.env.NEXT_PUBLIC_UPLOAD_PRESET)
+      ;(async () => {
+        const res = await axios.post(
+          `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUD_NAME}/image/upload`,
+          formData
+        )
+        imgarr.push(res.data.secure_url)
+        imgArrSetter(imgarr)
+        toast.success(`Image number ${i + 1} uploaded`)
+      })()
+    }
+  }
+
   const {
     register,
     handleSubmit,
-    getValues,
     formState: { errors }
   } = useForm()
   const onSubmit = (data) => {
-    console.log({ ...data, category, variants })
-  }
-
-  const showPreview = () => {
-    const values = getValues()
-    setpreview({
-      ...values,
+    console.log({
+      ...data,
       category,
-      variants
+      variants,
+      ...priceSchema,
+      images: image,
+      descriptionImages: descriptionImage
     })
   }
 
@@ -61,18 +112,61 @@ const AddProductPage = ({ data }) => {
             placeholder="Brand Name"
           />
           <Variants variants={variants} setvariants={setvariants} category={category} />
-          <div className="d-flex align-items-center">
-            <Button type="button" onClick={showPreview} color="green">
-              Show Preview
-            </Button>
-            <Button type="submit" primary className="d-block my-3">
-              Add Product
-            </Button>
-          </div>
+          {showConditionaly(category, ['smartPhone', 'tablet', 'laptop']) || (
+            <>
+              <InputGrpN
+                name="basePrice"
+                label="Base Price"
+                placeholder="Base Price"
+                onChange={handlePrice}
+                value={priceSchema.basePrice}
+                type="number"
+              />
+              <InputGrpN
+                name="discount"
+                label="Discount"
+                placeholder="In dollars or %"
+                onChange={handlePrice}
+                value={priceSchema.discount}
+              />
+              <div className="d-flex mb-3" data-for="price" data-tip="Price is calculated <br /> automatically">
+                <label>Price</label>
+                <p className="price">{priceSchema.price}</p>
+                <ReactTooltip id="price" place="right" multiline={true} type="dark" className="bg-dark text-white" />
+              </div>
+            </>
+          )}
+          <InputGrpN
+            name="images"
+            label="Product Images"
+            required={true}
+            type="file"
+            accept="image/*"
+            multiple={true}
+            onChange={(e) => handleImageUpload(e, 5, setimage)}
+            description="Please upload potrait mode photo and you can upload up to 5 images"
+          />
+          <InputGrpN
+            name="descriptionImages"
+            label="Description Images"
+            required={true}
+            type="file"
+            accept="image/*"
+            multiple={true}
+            onChange={(e) => handleImageUpload(e, 3, setdescriptionImage)}
+            description="Please upload landscape mode photo and you can upload up to 3 images"
+          />
+          {/* {image && (
+            <div className="d-flex">
+              {image.map((item) => (
+                <img src={item} alt="product" key={item} className="img-thumbnail m-1" />
+              ))}
+            </div>
+          )} */}
+          <Button type="submit" primary className="d-block my-3 px-5">
+            Add Product
+          </Button>
         </form>
-        {/* <div className="preview w-50">
-          {Object.keys(preview).length > 0 && <div className="p-5 shadow shadow-lg">{JSON.stringify(preview)}</div>}
-        </div> */}
       </div>
     </DLayout>
   )

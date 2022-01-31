@@ -7,6 +7,7 @@ import {
 } from '@/helpers/dashboard/add-product-helpers'
 import React from 'react'
 import { FaPlus, FaTimesCircle } from 'react-icons/fa'
+import ReactTooltip from 'react-tooltip'
 import { Button } from 'semantic-ui-react'
 
 const Variants = ({ variants, setvariants, category }) => {
@@ -30,44 +31,50 @@ const Variants = ({ variants, setvariants, category }) => {
                   value={variant.ram}
                   type="number"
                 />
-                <InputGrpN
-                  name="rom"
-                  label="Rom"
-                  placeholder="Rom (in GB)"
-                  onChange={(e) => handleVariant(variants, setvariants, e, variant.id)}
-                  value={variant.rom}
-                  type="number"
-                />
-                <InputGrpN
-                  name="storage"
-                  label="Storage"
-                  placeholder="Storage"
-                  onChange={(e) => handleVariant(variants, setvariants, e, variant.id)}
-                  value={variant.storage}
-                  type="number"
-                />
-                <InputGrpN
-                  name="storageUnit"
-                  label="Storage Unit"
-                  placeholder="Unit (GB, TB, etc)"
-                  onChange={(e) => handleVariant(variants, setvariants, e, variant.id)}
-                  value={variant.storageUnit}
-                />
-                <InputGrpN
-                  name="size"
-                  label="Size"
-                  placeholder="Size"
-                  onChange={(e) => handleVariant(variants, setvariants, e, variant.id)}
-                  value={variant.size}
-                  type="number"
-                />
-                <InputGrpN
-                  name="sizeUnit"
-                  label="Size Unit"
-                  placeholder="Unit (inch, cm, etc)"
-                  onChange={(e) => handleVariant(variants, setvariants, e, variant.id)}
-                  value={variant.sizeUnit}
-                />
+                {showConditionaly(category, ['smartPhone', 'tablet']) && (
+                  <InputGrpN
+                    name="rom"
+                    label="Rom"
+                    placeholder="Rom (in GB)"
+                    onChange={(e) => handleVariant(variants, setvariants, e, variant.id)}
+                    value={variant.rom}
+                    type="number"
+                  />
+                )}
+                {showConditionaly(category, ['laptop']) && (
+                  <>
+                    <InputGrpN
+                      name="storage"
+                      label="Storage"
+                      placeholder="Storage"
+                      onChange={(e) => handleVariant(variants, setvariants, e, variant.id)}
+                      value={variant.storage}
+                      type="number"
+                    />
+                    <InputGrpN
+                      name="storageUnit"
+                      label="Storage Unit"
+                      placeholder="Unit (GB, TB, etc)"
+                      onChange={(e) => handleVariant(variants, setvariants, e, variant.id)}
+                      value={variant.storageUnit}
+                    />
+                    <InputGrpN
+                      name="size"
+                      label="Size"
+                      placeholder="Size"
+                      onChange={(e) => handleVariant(variants, setvariants, e, variant.id)}
+                      value={variant.size}
+                      type="number"
+                    />
+                    <InputGrpN
+                      name="sizeUnit"
+                      label="Size Unit"
+                      placeholder="Unit (inch, cm, etc)"
+                      onChange={(e) => handleVariant(variants, setvariants, e, variant.id)}
+                      value={variant.sizeUnit}
+                    />
+                  </>
+                )}
                 <InputGrpN
                   name="basePrice"
                   label="Base Price"
@@ -80,13 +87,14 @@ const Variants = ({ variants, setvariants, category }) => {
                 <InputGrpN
                   name="discount"
                   label="Discount"
-                  placeholder="Discount (in dollars or %)"
+                  placeholder="Discount (In dollars or %)"
                   onChange={(e) => handleVariant(variants, setvariants, e, variant.id)}
                   value={variant.discount}
                 />
-                <div className="d-flex mb-3">
+                <div className="d-flex mb-3" data-for="main" data-tip="Price is calculated <br /> automatically">
                   <label>Price</label>
                   <p className="price">{variant.price}</p>
+                  <ReactTooltip id="main" place="right" multiline={true} />
                 </div>
                 <Button
                   basic
