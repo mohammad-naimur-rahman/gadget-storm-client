@@ -13,7 +13,7 @@ export const handleAddVariant = (variants, setvariants) => {
       sizeUnit: '',
       basePrice: '',
       discount: '',
-      price: ''
+      price: 0
     }
   ])
   console.log(variants)

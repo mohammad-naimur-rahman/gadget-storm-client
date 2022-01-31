@@ -1,5 +1,3 @@
-import React from 'react'
-
 export const InputGrp = ({
   name,
   label,
@@ -37,7 +35,7 @@ export const InputGrpN = ({ name, label, required = false, placeholder, onChange
         {label}
         {required ? '*' : ''} <span>&nbsp;</span> :
       </label>
-      <input type={type} placeholder={placeholder} requred={required} value={value} onChange={onChange} />
+      <input type={type} placeholder={placeholder} required={required} value={value} onChange={onChange} name={name} />
     </div>
   )
 }

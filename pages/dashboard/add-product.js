@@ -1,28 +1,32 @@
 import DLayout from '@/components/common/Layout/DLayout'
-import { InputGrp, InputGrpN } from '@/components/common/utils/InputGrp'
+import { InputGrp } from '@/components/common/utils/InputGrp'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Button } from 'semantic-ui-react'
 import Data from '@/data/categories.json'
-import { handleAddVariant, handleVariant, showConditionaly } from '@/helpers/dashboard/add-product-helpers'
-import { FaPlus } from 'react-icons/fa'
+import Variants from '@/components/pageComponents/Dashboard/AddProductPage/Variants'
 
 const AddProductPage = ({ data }) => {
   const [category, setcategory] = useState('smartPhone')
   const [variants, setvariants] = useState([])
   const [preview, setpreview] = useState({})
-  console.log(category)
   const {
     register,
     handleSubmit,
     getValues,
     formState: { errors }
   } = useForm()
-  const onSubmit = (data) => console.log(data)
+  const onSubmit = (data) => {
+    console.log({ ...data, category, variants })
+  }
 
   const showPreview = () => {
     const values = getValues()
-    setpreview(values, { category }, { variants })
+    setpreview({
+      ...values,
+      category,
+      variants
+    })
   }
 
   return (
@@ -56,85 +60,9 @@ const AddProductPage = ({ data }) => {
             required={true}
             placeholder="Brand Name"
           />
-          {variants && <h3 className="ms-2">Variants</h3>}
-          {variants?.map((variant, i) => (
-            <div key={variant.id} className="d-flex flex-column p-3 mx-1 my-4 shadow shadow-lg">
-              <h3>
-                <i>Variant {i + 1}</i>
-              </h3>
-              <InputGrpN
-                name="ram"
-                label="Ram"
-                placeholder="Ram (in GB)"
-                required={true}
-                onChange={(e) => handleVariant(variants, setvariants, e, variant.id)}
-                value={variant.ram}
-                type="number"
-              />
-              <InputGrpN
-                name="rom"
-                label="Rom"
-                placeholder="Rom (in GB)"
-                onChange={(e) => handleVariant(variants, setvariants, e, variant.id)}
-                value={variant.rom}
-                type="number"
-              />
-              <InputGrpN
-                name="storage"
-                label="Storage"
-                placeholder="Storage"
-                onChange={(e) => handleVariant(variants, setvariants, e, variant.id)}
-                value={variant.storage}
-                type="number"
-              />
-              <InputGrpN
-                name="storageUnit"
-                label="Storage Uni"
-                placeholder="Unit (GB, TB, etc)"
-                onChange={(e) => handleVariant(variants, setvariants, e, variant.id)}
-                value={variant.storageUnit}
-                type="number"
-              />
-              <InputGrpN
-                name="size"
-                label="Size"
-                placeholder="Size"
-                onChange={(e) => handleVariant(variants, setvariants, e, variant.id)}
-                value={variant.size}
-                type="number"
-              />
-              <InputGrpN
-                name="sizeUnit"
-                label="Size Unit"
-                placeholder="Unit (inch, cm, etc)"
-                onChange={(e) => handleVariant(variants, setvariants, e, variant.id)}
-                value={variant.sizeUnit}
-              />
-              <InputGrpN
-                name="basePrice"
-                label="Base Price"
-                placeholder="Base Price"
-                required={true}
-                onChange={(e) => handleVariant(variants, setvariants, e, variant.id)}
-                value={variant.basePrice}
-                type="number"
-              />
-              <InputGrpN
-                name="discount"
-                label="Discount"
-                placeholder="Discount (in dollars or %)"
-                onChange={(e) => handleVariant(variants, setvariants, e, variant.id)}
-                value={variant.discount}
-              />
-            </div>
-          ))}
-          {showConditionaly(category, ['smartPhone', 'laptop', 'tablet']) && (
-            <Button onClick={() => handleAddVariant(variants, setvariants)} secondary className="d-block my-3">
-              <FaPlus /> Add a variant
-            </Button>
-          )}
-          <div className="d-flex">
-            <Button onClick={showPreview} secondary>
+          <Variants variants={variants} setvariants={setvariants} category={category} />
+          <div className="d-flex align-items-center">
+            <Button type="button" onClick={showPreview} color="green">
               Show Preview
             </Button>
             <Button type="submit" primary className="d-block my-3">
@@ -142,9 +70,9 @@ const AddProductPage = ({ data }) => {
             </Button>
           </div>
         </form>
-        <div className="preview">
-          {Object.keys(preview).length > 0 && <div className="p-5 m-5 shadow shadow-lg">{JSON.stringify(preview)}</div>}
-        </div>
+        {/* <div className="preview w-50">
+          {Object.keys(preview).length > 0 && <div className="p-5 shadow shadow-lg">{JSON.stringify(preview)}</div>}
+        </div> */}
       </div>
     </DLayout>
   )
