@@ -1,4 +1,5 @@
 import { InputGrpN } from '@/components/common/utils/InputGrp'
+import { v4 as uuid } from 'uuid'
 import {
   handleAddVariant,
   handleDeleteVariant,
@@ -111,7 +112,25 @@ const Variants = ({ variants, setvariants, category }) => {
         </>
       )}
       {showConditionaly(category, ['smartPhone', 'laptop', 'tablet']) && (
-        <Button onClick={() => handleAddVariant(variants, setvariants)} basic secondary className="d-block my-3">
+        <Button
+          onClick={() =>
+            handleAddVariant(variants, setvariants, {
+              id: uuid(),
+              ram: '',
+              rom: '',
+              storage: '',
+              storageUnit: '',
+              size: '',
+              sizeUnit: '',
+              basePrice: '',
+              discount: '',
+              price: 0
+            })
+          }
+          basic
+          secondary
+          className="d-block my-3"
+        >
           <FaPlus /> Add a variant
         </Button>
       )}

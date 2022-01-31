@@ -9,6 +9,8 @@ import { showConditionaly } from '@/helpers/dashboard/add-product-helpers'
 import ReactTooltip from 'react-tooltip'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import FrontCameraSensors from '@/components/pageComponents/Dashboard/AddProductPage/FrontCameraSensors'
+import BackCameraSensors from '@/components/pageComponents/Dashboard/AddProductPage/BackCameraSensors'
 
 const AddProductPage = ({ data }) => {
   const [category, setcategory] = useState('drone')
@@ -21,6 +23,8 @@ const AddProductPage = ({ data }) => {
 
   const [image, setimage] = useState([])
   const [descriptionImage, setdescriptionImage] = useState([])
+  const [frontCameraSensors, setfrontCameraSensors] = useState([])
+  const [backCameraSensors, setbackCameraSensors] = useState([])
 
   const handlePrice = (e) => {
     const inputFields = {
@@ -53,13 +57,17 @@ const AddProductPage = ({ data }) => {
       formData.append('file', img[i])
       formData.append('upload_preset', process.env.NEXT_PUBLIC_UPLOAD_PRESET)
       ;(async () => {
-        const res = await axios.post(
-          `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUD_NAME}/image/upload`,
-          formData
-        )
-        imgarr.push(res.data.secure_url)
-        imgArrSetter(imgarr)
-        toast.success(`Image number ${i + 1} uploaded`)
+        try {
+          const res = await axios.post(
+            `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUD_NAME}/image/upload`,
+            formData
+          )
+          imgarr.push(res.data.secure_url)
+          imgArrSetter(imgarr)
+          toast.success(`Image number ${i + 1} uploaded`)
+        } catch (error) {
+          toast.error('Image upload failed')
+        }
       })()
     }
   }
@@ -149,7 +157,6 @@ const AddProductPage = ({ data }) => {
           <InputGrpN
             name="descriptionImages"
             label="Description Images"
-            required={true}
             type="file"
             accept="image/*"
             multiple={true}
@@ -163,6 +170,29 @@ const AddProductPage = ({ data }) => {
               ))}
             </div>
           )} */}
+          <div className="d-flex flex-column mb-3">
+            <div className="d-flex">
+              <label htmlFor="description">
+                Description* <span>&nbsp;</span> :
+              </label>
+              <textarea
+                id="description"
+                cols="60"
+                rows="10"
+                {...register('description', { required: true })}
+                placeholder="Example: Charging: wireless \n Battery: 3000mAh \n Display: 6.5 inches \n Processor: Snapdragon 855 \n RAM: 4GB \n Storage: 64GB"
+              ></textarea>
+            </div>
+          </div>
+          {showConditionaly(category, ['smartPhone', 'tablet', 'laptop']) && (
+            <InputGrp register={register} errors={errors} name="processor" label="Processor" placeholder="Processor" />
+          )}
+          {showConditionaly(category, ['smartPhone', 'tablet']) && (
+            <FrontCameraSensors frontCameraSensors={frontCameraSensors} setfrontCameraSensors={setfrontCameraSensors} />
+          )}
+          {showConditionaly(category, ['smartPhone', 'tablet']) && (
+            <BackCameraSensors backCameraSensors={backCameraSensors} setbackCameraSensors={setbackCameraSensors} />
+          )}
           <Button type="submit" primary className="d-block my-3 px-5">
             Add Product
           </Button>

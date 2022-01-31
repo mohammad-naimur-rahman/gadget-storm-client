@@ -1,22 +1,6 @@
-import { v4 as uuid } from 'uuid'
-
-export const handleAddVariant = (variants, setvariants) => {
-  setvariants([
-    ...variants,
-    {
-      id: uuid(),
-      ram: '',
-      rom: '',
-      storage: '',
-      storageUnit: '',
-      size: '',
-      sizeUnit: '',
-      basePrice: '',
-      discount: '',
-      price: 0
-    }
-  ])
-  console.log(variants)
+export const handleAddVariant = (getter, setter, schema) => {
+  setter([...getter, schema])
+  console.log(getter)
 }
 
 export const handleVariant = (variants, setvariants, e, id) => {
@@ -24,12 +8,14 @@ export const handleVariant = (variants, setvariants, e, id) => {
     if (id === i.id) {
       i[e.target.name] = e.target.value
 
-      if (i.discount.includes('%')) {
-        i.price = i.basePrice - (i.basePrice * i.discount.split('%')[0]) / 100
-      } else if (typeof +i.discount === 'number') {
-        i.price = i.basePrice - i.discount
-      } else {
-        i.price = i.basePrice
+      if (i.basePrice || i.discount) {
+        if (i.discount.includes('%')) {
+          i.price = i.basePrice - (i.basePrice * i.discount.split('%')[0]) / 100
+        } else if (typeof +i.discount === 'number') {
+          i.price = i.basePrice - i.discount
+        } else {
+          i.price = i.basePrice
+        }
       }
     }
     return i
