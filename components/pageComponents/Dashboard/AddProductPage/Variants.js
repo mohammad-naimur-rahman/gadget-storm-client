@@ -97,6 +97,7 @@ const Variants = ({ variants, setvariants, category }) => {
                   basic
                   className="d-flex align-items-center justify-content-center"
                   color="red"
+                  type="button"
                   onClick={() => handleDeleteVariant(variants, setvariants, variant.id)}
                 >
                   <FaTimesCircle />
@@ -125,6 +126,7 @@ const Variants = ({ variants, setvariants, category }) => {
           }
           basic
           secondary
+          type="button"
           className="d-block my-3"
         >
           <FaPlus /> Add a variant

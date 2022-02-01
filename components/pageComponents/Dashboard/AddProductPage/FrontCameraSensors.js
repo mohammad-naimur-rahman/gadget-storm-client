@@ -54,6 +54,7 @@ const FrontCameraSensors = ({ frontCameraSensors, setfrontCameraSensors }) => {
                   basic
                   className="d-flex align-items-center justify-content-center"
                   color="red"
+                  type="button"
                   onClick={() => handleDeleteVariant(frontCameraSensors, setfrontCameraSensors, sensor.id)}
                 >
                   <FaTimesCircle />
@@ -76,6 +77,7 @@ const FrontCameraSensors = ({ frontCameraSensors, setfrontCameraSensors }) => {
         }
         basic
         secondary
+        type="button"
         className="d-block my-3"
       >
         <FaPlus /> Add Front Camera Sensor

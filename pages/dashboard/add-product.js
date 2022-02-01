@@ -29,16 +29,10 @@ const AddProductPage = ({ data }) => {
 
   const [image, setimage] = useState([])
   const [descriptionImage, setdescriptionImage] = useState([])
-  const [frontCamera, setfrontCamera] = useState({
-    frontCameraSensors: [],
-    videoCapability: ''
-  })
-  const [backCamera, setbackCamera] = useState({
-    backCameraSensors: [],
-    videoCapability: ''
-  })
   const [frontCameraSensors, setfrontCameraSensors] = useState([])
+  const [frontCameraVideoCapability, setfrontCameraVideoCapability] = useState('')
   const [backCameraSensors, setbackCameraSensors] = useState([])
+  const [backCameraVideoCapability, setbackCameraVideoCapability] = useState('')
 
   const [dimensions, setdimensions] = useState({
     length: '',
@@ -151,7 +145,7 @@ const AddProductPage = ({ data }) => {
             accept="image/*"
             multiple={true}
             onChange={(e) => handleImageUpload(e, 5, setimage)}
-            description="Please upload potrait mode photo and you can upload up to 5 images"
+            description="Please upload potrait mode or square shaped photo and you can upload up to 5 images"
           />
           <InputGrpN
             name="descriptionImages"
@@ -190,7 +184,19 @@ const AddProductPage = ({ data }) => {
                 frontCameraSensors={frontCameraSensors}
                 setfrontCameraSensors={setfrontCameraSensors}
               />
+              <InputGrpN
+                label="Video Capability"
+                placeholder="Front Camera Video Capability"
+                onChange={(e) => setfrontCameraVideoCapability(e.target.value)}
+                value={frontCameraVideoCapability}
+              />
               <BackCameraSensors backCameraSensors={backCameraSensors} setbackCameraSensors={setbackCameraSensors} />
+              <InputGrpN
+                label="Video Capability"
+                placeholder="Back Camera Video Capability"
+                onChange={(e) => setbackCameraVideoCapability(e.target.value)}
+                value={backCameraVideoCapability}
+              />
             </>
           )}
           {showConditionaly(category, ['smartPhone', 'tablet', 'laptop']) && (

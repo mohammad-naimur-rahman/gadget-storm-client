@@ -52,6 +52,7 @@ const BackCameraSensors = ({ backCameraSensors, setbackCameraSensors }) => {
                 />
                 <Button
                   basic
+                  type="button"
                   className="d-flex align-items-center justify-content-center"
                   color="red"
                   onClick={() => handleDeleteVariant(backCameraSensors, setbackCameraSensors, sensor.id)}
@@ -76,6 +77,7 @@ const BackCameraSensors = ({ backCameraSensors, setbackCameraSensors }) => {
         }
         basic
         secondary
+        type="button"
         className="d-block my-3"
       >
         <FaPlus /> Add Back Camera Sensor
