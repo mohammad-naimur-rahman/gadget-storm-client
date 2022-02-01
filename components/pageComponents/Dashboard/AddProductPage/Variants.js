@@ -1,15 +1,11 @@
 import { InputGrpN } from '@/components/common/utils/InputGrp'
 import { v4 as uuid } from 'uuid'
-import {
-  handleAddVariant,
-  handleDeleteVariant,
-  handleVariant,
-  showConditionaly
-} from '@/helpers/dashboard/add-product-helpers'
+import { handleAddVariant, handleDeleteVariant, handleVariant } from '@/helpers/dashboard/add-product-helpers'
 import React from 'react'
 import { FaPlus, FaTimesCircle } from 'react-icons/fa'
 import ReactTooltip from 'react-tooltip'
 import { Button } from 'semantic-ui-react'
+import { showConditionaly } from '@/helpers/helpers'
 
 const Variants = ({ variants, setvariants, category }) => {
   return (

@@ -5,15 +5,26 @@ import { useForm } from 'react-hook-form'
 import { Button } from 'semantic-ui-react'
 import Data from '@/data/categories.json'
 import Variants from '@/components/pageComponents/Dashboard/AddProductPage/Variants'
-import { showConditionaly } from '@/helpers/dashboard/add-product-helpers'
 import ReactTooltip from 'react-tooltip'
-import axios from 'axios'
-import { toast } from 'react-toastify'
 import FrontCameraSensors from '@/components/pageComponents/Dashboard/AddProductPage/FrontCameraSensors'
 import BackCameraSensors from '@/components/pageComponents/Dashboard/AddProductPage/BackCameraSensors'
+import { showConditionaly } from '@/helpers/helpers'
+import {
+  handleAddGrp,
+  handleChange,
+  handleDeleteGrp,
+  handleImageUpload,
+  handlePrice
+} from '@/helpers/dashboard/add-product-helpers'
 
 const AddProductPage = ({ data }) => {
-  const [category, setcategory] = useState('drone')
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm()
+
+  const [category, setcategory] = useState('smartPhone')
   const [variants, setvariants] = useState([])
   const [priceSchema, setpriceSchema] = useState({
     basePrice: '',
@@ -23,60 +34,33 @@ const AddProductPage = ({ data }) => {
 
   const [image, setimage] = useState([])
   const [descriptionImage, setdescriptionImage] = useState([])
+  const [frontCamera, setfrontCamera] = useState({
+    frontCameraSensors: [],
+    videoCapability: ''
+  })
+  const [backCamera, setbackCamera] = useState({
+    backCameraSensors: [],
+    videoCapability: ''
+  })
   const [frontCameraSensors, setfrontCameraSensors] = useState([])
   const [backCameraSensors, setbackCameraSensors] = useState([])
 
-  const handlePrice = (e) => {
-    const inputFields = {
-      ...priceSchema,
-      [e.target.name]: e.target.value
-    }
-    if (inputFields.discount && inputFields.discount.includes('%')) {
-      inputFields.price = inputFields.basePrice - (inputFields.basePrice * inputFields.discount.split('%')[0]) / 100
-    } else if (inputFields.discount && typeof +inputFields.discount === 'number') {
-      inputFields.price = inputFields.basePrice - inputFields.discount
-    } else {
-      inputFields.price = inputFields.basePrice
-    }
+  const [dimensions, setdimensions] = useState({
+    length: '',
+    width: '',
+    thickness: ''
+  })
 
-    setpriceSchema(inputFields)
-  }
+  const [display, setdisplay] = useState({
+    displayType: '',
+    displaySize: '',
+    displayResolution: '',
+    displayScreenToBodyRatio: ''
+  })
 
-  const handleImageUpload = (e, limit, imgArrSetter) => {
-    const formData = new FormData()
-    const img = e.target.files
+  const [feature, setfeature] = useState('')
+  const [features, setfeatures] = useState([])
 
-    const imgarr = []
-
-    if (img.length > limit) {
-      toast.error(`You can only upload ${limit} images`)
-      return
-    }
-    toast.info('Uploading image...')
-    for (let i = 0; i < img.length; i++) {
-      formData.append('file', img[i])
-      formData.append('upload_preset', process.env.NEXT_PUBLIC_UPLOAD_PRESET)
-      ;(async () => {
-        try {
-          const res = await axios.post(
-            `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUD_NAME}/image/upload`,
-            formData
-          )
-          imgarr.push(res.data.secure_url)
-          imgArrSetter(imgarr)
-          toast.success(`Image number ${i + 1} uploaded`)
-        } catch (error) {
-          toast.error('Image upload failed')
-        }
-      })()
-    }
-  }
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = useForm()
   const onSubmit = (data) => {
     console.log({
       ...data,
@@ -126,7 +110,7 @@ const AddProductPage = ({ data }) => {
                 name="basePrice"
                 label="Base Price"
                 placeholder="Base Price"
-                onChange={handlePrice}
+                onChange={(e) => handlePrice(e, priceSchema, setpriceSchema)}
                 value={priceSchema.basePrice}
                 type="number"
               />
@@ -134,7 +118,7 @@ const AddProductPage = ({ data }) => {
                 name="discount"
                 label="Discount"
                 placeholder="In dollars or %"
-                onChange={handlePrice}
+                onChange={(e) => handlePrice(e, priceSchema, setpriceSchema)}
                 value={priceSchema.discount}
               />
               <div className="d-flex mb-3" data-for="price" data-tip="Price is calculated <br /> automatically">
@@ -163,13 +147,6 @@ const AddProductPage = ({ data }) => {
             onChange={(e) => handleImageUpload(e, 3, setdescriptionImage)}
             description="Please upload landscape mode photo and you can upload up to 3 images"
           />
-          {/* {image && (
-            <div className="d-flex">
-              {image.map((item) => (
-                <img src={item} alt="product" key={item} className="img-thumbnail m-1" />
-              ))}
-            </div>
-          )} */}
           <div className="d-flex flex-column mb-3">
             <div className="d-flex">
               <label htmlFor="description">
@@ -184,6 +161,42 @@ const AddProductPage = ({ data }) => {
               ></textarea>
             </div>
           </div>
+          <h3>Features</h3>
+          {features && (
+            <div className="d-flex flex-wrap align-items-center">
+              {features.map((feature) => (
+                <p
+                  key={feature}
+                  className="d-flex align-items-center rounded rounded-pill ps-2 text-white m-1 pill-box"
+                >
+                  {feature}{' '}
+                  <span
+                    className="rounded rounded-circle ms-2 cross-mini-btn"
+                    onClick={() => handleDeleteGrp(feature, features, setfeatures)}
+                  >
+                    x
+                  </span>
+                </p>
+              ))}
+            </div>
+          )}
+          <div className="d-flex align-items-center mt-2">
+            <InputGrpN
+              label="Add Features"
+              placeholder="Input a feature"
+              value={feature}
+              onChange={(e) => setfeature(e.target.value)}
+            />
+            <Button
+              basic
+              color="green"
+              type="button"
+              onClick={() => handleAddGrp(feature, setfeature, features, setfeatures)}
+              className="ms-3 add-mini-btn"
+            >
+              +
+            </Button>
+          </div>
           {showConditionaly(category, ['smartPhone', 'tablet', 'laptop']) && (
             <InputGrp register={register} errors={errors} name="processor" label="Processor" placeholder="Processor" />
           )}
@@ -192,6 +205,130 @@ const AddProductPage = ({ data }) => {
           )}
           {showConditionaly(category, ['smartPhone', 'tablet']) && (
             <BackCameraSensors backCameraSensors={backCameraSensors} setbackCameraSensors={setbackCameraSensors} />
+          )}
+          {showConditionaly(category, ['smartPhone', 'tablet', 'laptop']) && (
+            <>
+              <h3>Operating System</h3>
+              <InputGrp
+                register={register}
+                errors={errors}
+                name="os"
+                label="Operating System"
+                placeholder="(Ex: Android, iOS, Windows)"
+              />
+              <h3>Battery</h3>
+              <InputGrp
+                register={register}
+                errors={errors}
+                name="battery"
+                label="Battery (In mAh)"
+                placeholder="Battery Capacity"
+                type="number"
+              />
+              <InputGrp
+                register={register}
+                errors={errors}
+                name="batteryType"
+                label="Battery Type"
+                placeholder="(Ex: Li-po, Li-ion)"
+              />
+              <h3>Dimensions</h3>
+              <InputGrpN
+                name="length"
+                label="Length"
+                placeholder="Length"
+                onChange={(e) => handleChange(e, dimensions, setdimensions)}
+                value={dimensions.length}
+                type="number"
+              />
+              <InputGrpN
+                name="width"
+                label="Width"
+                placeholder="Width"
+                onChange={(e) => handleChange(e, dimensions, setdimensions)}
+                value={dimensions.width}
+                type="number"
+              />
+              <InputGrpN
+                name="thickness"
+                label="Thickness"
+                placeholder="Thickness"
+                onChange={(e) => handleChange(e, dimensions, setdimensions)}
+                value={dimensions.thickness}
+                type="number"
+              />
+            </>
+          )}
+          {showConditionaly(category, ['smartPhone', 'tablet', 'laptop']) && (
+            <>
+              <h3>Display</h3>
+              <InputGrpN
+                name="displayType"
+                label="Display Type"
+                placeholder="(Ex: IPS, Amoled)"
+                onChange={(e) => handleChange(e, display, setdisplay)}
+                value={display.displayType}
+              />
+              <InputGrpN
+                name="displaySize"
+                label="Display Size"
+                placeholder="Size (In inches)"
+                onChange={(e) => handleChange(e, display, setdisplay)}
+                value={display.displaySize}
+              />
+              <InputGrpN
+                name="displayResolution"
+                label="Display Resolution"
+                placeholder="(Ex: 1080p, 720p)"
+                onChange={(e) => handleChange(e, display, setdisplay)}
+                value={display.displayResolution}
+              />
+              <InputGrpN
+                name="displayScreenToBodyRatio"
+                label="Screen to Body Ratio"
+                placeholder="(Ex: 85%)"
+                onChange={(e) => handleChange(e, display, setdisplay)}
+                value={display.displayScreenToBodyRatio}
+              />
+              <h3>Others</h3>
+              <InputGrp
+                register={register}
+                errors={errors}
+                name="weight"
+                label="Weight"
+                placeholder="Weight (Ex: 209gm)"
+              />
+            </>
+          )}
+          {showConditionaly(category, ['earphone']) && (
+            <InputGrp
+              register={register}
+              errors={errors}
+              name="driver"
+              label="Number of driver"
+              placeholder="(Ex: 1, 2)"
+              type="number"
+            />
+          )}
+          {showConditionaly(category, ['gimbal']) && (
+            <InputGrp
+              register={register}
+              errors={errors}
+              name="axis"
+              label="Number of axis"
+              placeholder="(Ex: 2, 3)"
+              type="number"
+            />
+          )}
+          {showConditionaly(category, ['drone']) && (
+            <InputGrp
+              register={register}
+              errors={errors}
+              name="flyingTime"
+              label="Flying Time"
+              placeholder="Flying Time (In minutes)"
+              type="number"
+            />
           )}
           <Button type="submit" primary className="d-block my-3 px-5">
             Add Product

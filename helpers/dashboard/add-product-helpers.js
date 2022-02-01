@@ -1,3 +1,6 @@
+import axios from 'axios'
+import { toast } from 'react-toastify'
+
 export const handleAddVariant = (getter, setter, schema) => {
   setter([...getter, schema])
   console.log(getter)
@@ -33,7 +36,71 @@ export const handleDeleteVariant = (variants, setvariants, id) => {
   setvariants(values)
 }
 
-export const showConditionaly = (category, forShow) => {
-  const arr = forShow.map((each) => category === each)
-  return arr.find((el) => el === true) ? true : false
+export const handlePrice = (e, priceSchema, setpriceSchema) => {
+  const inputFields = {
+    ...priceSchema,
+    [e.target.name]: e.target.value
+  }
+  if (inputFields.discount && inputFields.discount.includes('%')) {
+    inputFields.price = inputFields.basePrice - (inputFields.basePrice * inputFields.discount.split('%')[0]) / 100
+  } else if (inputFields.discount && typeof +inputFields.discount === 'number') {
+    inputFields.price = inputFields.basePrice - inputFields.discount
+  } else {
+    inputFields.price = inputFields.basePrice
+  }
+
+  setpriceSchema(inputFields)
+}
+
+export const handleImageUpload = (e, limit, imgArrSetter, showImgSetter) => {
+  const formData = new FormData()
+  const img = e.target.files
+
+  const imgarr = []
+
+  if (img.length > limit) {
+    toast.error(`You can only upload ${limit} images`)
+    return
+  }
+  toast.info('Uploading image...')
+  for (let i = 0; i < img.length; i++) {
+    formData.append('file', img[i])
+    formData.append('upload_preset', process.env.NEXT_PUBLIC_UPLOAD_PRESET)
+    ;(async () => {
+      try {
+        const res = await axios.post(
+          `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUD_NAME}/image/upload`,
+          formData
+        )
+        imgarr.push(res.data.secure_url)
+        imgArrSetter(imgarr)
+        if (i === img.length - 1) {
+          toast.success('All images are uploaded')
+          showImgSetter(true)
+        }
+      } catch (error) {
+        toast.error(error.message)
+      }
+    })()
+  }
+}
+
+export const handleChange = (e, getter, setter) => {
+  setter({
+    ...getter,
+    [e.target.name]: e.target.value
+  })
+}
+
+export const handleAddGrp = (value, setvalue, getter, setter) => {
+  if (value) {
+    setvalue('')
+    setter([...getter, value])
+  }
+}
+
+export const handleDeleteGrp = (value, getter, setter) => {
+  const values = [...getter]
+  const newValues = values.filter((el) => el !== value)
+  setter(newValues)
 }
