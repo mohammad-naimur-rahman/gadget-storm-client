@@ -76,7 +76,7 @@ export const handleImageUpload = (e, limit, imgArrSetter, showImgSetter) => {
         imgArrSetter(imgarr)
         if (i === img.length - 1) {
           toast.success('All images are uploaded')
-          showImgSetter(true)
+          //showImgSetter(true)
         }
       } catch (error) {
         toast.error(error.message)

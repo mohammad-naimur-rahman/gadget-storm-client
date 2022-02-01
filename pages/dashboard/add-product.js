@@ -2,20 +2,15 @@ import DLayout from '@/components/common/Layout/DLayout'
 import { InputGrp, InputGrpN } from '@/components/common/utils/InputGrp'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Button } from 'semantic-ui-react'
+import { Button, Checkbox } from 'semantic-ui-react'
 import Data from '@/data/categories.json'
 import Variants from '@/components/pageComponents/Dashboard/AddProductPage/Variants'
 import ReactTooltip from 'react-tooltip'
 import FrontCameraSensors from '@/components/pageComponents/Dashboard/AddProductPage/FrontCameraSensors'
 import BackCameraSensors from '@/components/pageComponents/Dashboard/AddProductPage/BackCameraSensors'
 import { showConditionaly } from '@/helpers/helpers'
-import {
-  handleAddGrp,
-  handleChange,
-  handleDeleteGrp,
-  handleImageUpload,
-  handlePrice
-} from '@/helpers/dashboard/add-product-helpers'
+import { handleChange, handleImageUpload, handlePrice } from '@/helpers/dashboard/add-product-helpers'
+import InputGroups from '@/components/pageComponents/Dashboard/AddProductPage/InputGroups'
 
 const AddProductPage = ({ data }) => {
   const {
@@ -60,6 +55,26 @@ const AddProductPage = ({ data }) => {
 
   const [feature, setfeature] = useState('')
   const [features, setfeatures] = useState([])
+
+  const [boxContent, setboxContent] = useState('')
+  const [boxContents, setboxContents] = useState([])
+
+  const [port, setport] = useState('')
+  const [ports, setports] = useState([])
+
+  const [color, setcolor] = useState('')
+  const [colors, setcolors] = useState([])
+
+  const [coupon, setcoupon] = useState({
+    code: '',
+    discount: '',
+    startDate: Date.now(),
+    endDate: Date.now(),
+    totalCoupon: ''
+  })
+
+  const [featured, setfeatured] = useState(false)
+  const [supply, setsupply] = useState(true)
 
   const onSubmit = (data) => {
     console.log({
@@ -161,60 +176,39 @@ const AddProductPage = ({ data }) => {
               ></textarea>
             </div>
           </div>
-          <h3>Features</h3>
-          {features && (
-            <div className="d-flex flex-wrap align-items-center">
-              {features.map((feature) => (
-                <p
-                  key={feature}
-                  className="d-flex align-items-center rounded rounded-pill ps-2 text-white m-1 pill-box"
-                >
-                  {feature}{' '}
-                  <span
-                    className="rounded rounded-circle ms-2 cross-mini-btn"
-                    onClick={() => handleDeleteGrp(feature, features, setfeatures)}
-                  >
-                    x
-                  </span>
-                </p>
-              ))}
-            </div>
-          )}
-          <div className="d-flex align-items-center mt-2">
-            <InputGrpN
-              label="Add Features"
-              placeholder="Input a feature"
-              value={feature}
-              onChange={(e) => setfeature(e.target.value)}
-            />
-            <Button
-              basic
-              color="green"
-              type="button"
-              onClick={() => handleAddGrp(feature, setfeature, features, setfeatures)}
-              className="ms-3 add-mini-btn"
-            >
-              +
-            </Button>
-          </div>
-          {showConditionaly(category, ['smartPhone', 'tablet', 'laptop']) && (
-            <InputGrp register={register} errors={errors} name="processor" label="Processor" placeholder="Processor" />
-          )}
+          <InputGroups
+            title="Feature"
+            singleGetter={feature}
+            singleSetter={setfeature}
+            getter={features}
+            setter={setfeatures}
+          />
           {showConditionaly(category, ['smartPhone', 'tablet']) && (
-            <FrontCameraSensors frontCameraSensors={frontCameraSensors} setfrontCameraSensors={setfrontCameraSensors} />
-          )}
-          {showConditionaly(category, ['smartPhone', 'tablet']) && (
-            <BackCameraSensors backCameraSensors={backCameraSensors} setbackCameraSensors={setbackCameraSensors} />
+            <>
+              <h3>Cameras</h3>
+              <FrontCameraSensors
+                frontCameraSensors={frontCameraSensors}
+                setfrontCameraSensors={setfrontCameraSensors}
+              />
+              <BackCameraSensors backCameraSensors={backCameraSensors} setbackCameraSensors={setbackCameraSensors} />
+            </>
           )}
           {showConditionaly(category, ['smartPhone', 'tablet', 'laptop']) && (
             <>
-              <h3>Operating System</h3>
+              <h3>Processor and OS</h3>
               <InputGrp
                 register={register}
                 errors={errors}
                 name="os"
                 label="Operating System"
                 placeholder="(Ex: Android, iOS, Windows)"
+              />
+              <InputGrp
+                register={register}
+                errors={errors}
+                name="processor"
+                label="Processor"
+                placeholder="Processor"
               />
               <h3>Battery</h3>
               <InputGrp
@@ -330,6 +324,122 @@ const AddProductPage = ({ data }) => {
               type="number"
             />
           )}
+          <InputGroups
+            title="Box Content"
+            singleGetter={boxContent}
+            singleSetter={setboxContent}
+            getter={boxContents}
+            setter={setboxContents}
+          />
+          {showConditionaly(category, ['smartPhone', 'tablet', 'laptop', 'powerBank', 'dslr']) && (
+            <InputGroups title="Port" singleGetter={port} singleSetter={setport} getter={ports} setter={setports} />
+          )}
+          {showConditionaly(category, ['powerBank']) && (
+            <InputGrp
+              register={register}
+              errors={errors}
+              name="capacity"
+              label="Battery Capacity"
+              placeholder="Capacity (In mAh)"
+              type="number"
+            />
+          )}
+          {showConditionaly(category, ['chargerAndCable']) && (
+            <InputGrp
+              register={register}
+              errors={errors}
+              name="length"
+              label="Cable Length"
+              placeholder="Length (In meters)"
+              type="number"
+            />
+          )}
+          <InputGroups title="Color" singleGetter={color} singleSetter={setcolor} getter={colors} setter={setcolors} />
+          {showConditionaly(category, ['dslr', 'actionCam', 'drone']) && (
+            <>
+              <h3>Camera</h3>
+              <InputGrp
+                register={register}
+                errors={errors}
+                name="camera"
+                label="Camera Capacity"
+                placeholder="Camera Capacity (In megapixels)"
+                type="number"
+              />
+              <InputGrp
+                register={register}
+                errors={errors}
+                name="imageSensor"
+                label="Image Sensor"
+                placeholder="Image Sensor"
+              />
+            </>
+          )}
+          <h3>Coupon</h3>
+          <InputGrpN
+            name="code"
+            label="Coupon Code"
+            placeholder="Coupon Code"
+            onChange={(e) => handleChange(e, coupon, setcoupon)}
+            value={coupon.code}
+          />
+          <InputGrpN
+            name="discount"
+            label="Discount"
+            placeholder="Discount (In dollars or %)"
+            onChange={(e) => handleChange(e, coupon, setcoupon)}
+            value={coupon.discount}
+          />
+          <InputGrpN
+            name="startDate"
+            label="Start Date"
+            placeholder="Start Date"
+            onChange={(e) => handleChange(e, coupon, setcoupon)}
+            value={coupon.startDate}
+            type="date"
+          />
+          <InputGrpN
+            name="endDate"
+            label="End Date"
+            placeholder="End Date"
+            onChange={(e) => handleChange(e, coupon, setcoupon)}
+            value={coupon.endDate}
+            type="date"
+          />
+          <InputGrpN
+            name="totalCoupon"
+            label="Total Coupon"
+            placeholder="Total Coupon (Number of coupons)"
+            onChange={(e) => handleChange(e, coupon, setcoupon)}
+            value={coupon.totalCoupon}
+            type="number"
+          />
+
+          <h3>Internals</h3>
+          <InputGrp
+            register={register}
+            errors={errors}
+            name="stockValue"
+            label="Stock"
+            placeholder="In Stock (Number of items)"
+            type="number"
+          />
+          <div className="py-3">
+            <Checkbox
+              className="slider-checkbox"
+              slider
+              label="Featured"
+              checked={featured}
+              onChange={(e) => setfeatured(e.target.checked)}
+            />
+            <Checkbox
+              className="slider-checkbox"
+              slider
+              label="Supply"
+              checked={supply}
+              onChange={(e) => setsupply(e.target.checked)}
+            />
+          </div>
           <Button type="submit" primary className="d-block my-3 px-5">
             Add Product
           </Button>
