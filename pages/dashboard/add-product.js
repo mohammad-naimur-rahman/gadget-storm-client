@@ -66,7 +66,9 @@ const AddProductPage = ({ data }) => {
     discount: '',
     startDate: Date.now(),
     endDate: Date.now(),
-    totalCoupon: ''
+    totalCoupon: '',
+    images: image,
+    descriptionImages: descriptionImage
   })
 
   const [featured, setfeatured] = useState(false)
@@ -79,7 +81,16 @@ const AddProductPage = ({ data }) => {
       variants,
       ...priceSchema,
       images: image,
-      descriptionImages: descriptionImage
+      descriptionImages: descriptionImage,
+      coupon,
+      colors,
+      ports,
+      features,
+      boxContents,
+      display,
+      dimensions,
+      frontCamera: { sensor: frontCameraSensors, videoCapability: frontCameraVideoCapability },
+      backCamera: { sensor: backCameraSensors, videoCapability: backCameraVideoCapability }
     })
   }
 
