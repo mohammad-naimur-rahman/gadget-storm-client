@@ -108,7 +108,7 @@ const Variants = ({ variants, setvariants, category }) => {
           </div>
         </>
       )}
-      {showConditionaly(category, ['smartPhone', 'laptop', 'tablet']) && (
+      {showConditionaly(category, ['smartPhone', 'laptop', 'tablet', 'smartWatch']) && (
         <Button
           onClick={() =>
             handleAddVariant(variants, setvariants, {

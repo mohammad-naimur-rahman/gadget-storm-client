@@ -28,7 +28,9 @@ const AddProductPage = ({ data }) => {
   })
 
   const [image, setimage] = useState([])
+  const [showImgPreview, setshowImgPreview] = useState(false)
   const [descriptionImage, setdescriptionImage] = useState([])
+  const [showDescImgPreview, setshowDescImgPreview] = useState(false)
   const [frontCameraSensors, setfrontCameraSensors] = useState([])
   const [frontCameraVideoCapability, setfrontCameraVideoCapability] = useState('')
   const [backCameraSensors, setbackCameraSensors] = useState([])
@@ -113,7 +115,7 @@ const AddProductPage = ({ data }) => {
             placeholder="Brand Name"
           />
           <Variants variants={variants} setvariants={setvariants} category={category} />
-          {showConditionaly(category, ['smartPhone', 'tablet', 'laptop']) || (
+          {showConditionaly(category, ['smartPhone', 'tablet', 'laptop', 'smartWatch']) || (
             <>
               <InputGrpN
                 name="basePrice"
@@ -140,22 +142,36 @@ const AddProductPage = ({ data }) => {
           <InputGrpN
             name="images"
             label="Product Images"
-            required={true}
+            //required={true}
             type="file"
             accept="image/*"
             multiple={true}
-            onChange={(e) => handleImageUpload(e, 5, setimage)}
+            onChange={(e) => handleImageUpload(e, 5, setimage, setshowImgPreview)}
             description="Please upload potrait mode or square shaped photo and you can upload up to 5 images"
           />
+          {showImgPreview && (
+            <div className="d-flex mb-3">
+              {[...image].map((img, i) => (
+                <img key={i} src={img} alt={i} className="preview-img m-1" />
+              ))}
+            </div>
+          )}
           <InputGrpN
             name="descriptionImages"
             label="Description Images"
             type="file"
             accept="image/*"
             multiple={true}
-            onChange={(e) => handleImageUpload(e, 3, setdescriptionImage)}
+            onChange={(e) => handleImageUpload(e, 3, setdescriptionImage, setshowDescImgPreview)}
             description="Please upload landscape mode photo and you can upload up to 3 images"
           />
+          {showDescImgPreview && (
+            <div className="d-flex mb-3">
+              {[...descriptionImage].map((img, i) => (
+                <img key={i} src={img} alt={i} className="preview-img" />
+              ))}
+            </div>
+          )}
           <div className="d-flex flex-column mb-3">
             <div className="d-flex">
               <label htmlFor="description">
@@ -199,7 +215,7 @@ const AddProductPage = ({ data }) => {
               />
             </>
           )}
-          {showConditionaly(category, ['smartPhone', 'tablet', 'laptop']) && (
+          {showConditionaly(category, ['smartPhone', 'tablet', 'laptop', 'smartWatch']) && (
             <>
               <h3>Processor and OS</h3>
               <InputGrp
@@ -215,22 +231,6 @@ const AddProductPage = ({ data }) => {
                 name="processor"
                 label="Processor"
                 placeholder="Processor"
-              />
-              <h3>Battery</h3>
-              <InputGrp
-                register={register}
-                errors={errors}
-                name="battery"
-                label="Battery (In mAh)"
-                placeholder="Battery Capacity"
-                type="number"
-              />
-              <InputGrp
-                register={register}
-                errors={errors}
-                name="batteryType"
-                label="Battery Type"
-                placeholder="(Ex: Li-po, Li-ion)"
               />
               <h3>Dimensions</h3>
               <InputGrpN
@@ -259,7 +259,46 @@ const AddProductPage = ({ data }) => {
               />
             </>
           )}
-          {showConditionaly(category, ['smartPhone', 'tablet', 'laptop']) && (
+          {showConditionaly(category, [
+            'smartPhone',
+            'tablet',
+            'laptop',
+            'smartWatch',
+            'earphone',
+            'dslr',
+            'gimbal',
+            'drone',
+            'actionCam',
+            'bluetoothSpeaker'
+          ]) && (
+            <>
+              <h3>Battery and Charing</h3>
+              <InputGrp
+                register={register}
+                errors={errors}
+                name="battery"
+                label="Battery (In mAh)"
+                placeholder="Battery Capacity"
+                type="number"
+              />
+              <InputGrp
+                register={register}
+                errors={errors}
+                name="batteryType"
+                label="Battery Type"
+                placeholder="(Ex: Li-po, Li-ion)"
+              />
+              <InputGrp
+                register={register}
+                errors={errors}
+                name="charginSpeed"
+                label="Charging Speed"
+                placeholder="Charging Speed (In Watt)"
+              />
+            </>
+          )}
+
+          {showConditionaly(category, ['smartPhone', 'tablet', 'laptop', 'smartWatch', 'dslr']) && (
             <>
               <h3>Display</h3>
               <InputGrpN
@@ -290,6 +329,19 @@ const AddProductPage = ({ data }) => {
                 onChange={(e) => handleChange(e, display, setdisplay)}
                 value={display.displayScreenToBodyRatio}
               />
+            </>
+          )}
+          {showConditionaly(category, [
+            'smartPhone',
+            'tablet',
+            'laptop',
+            'gimbal',
+            'drone',
+            'dslr',
+            'actionCam',
+            'powerBank'
+          ]) && (
+            <>
               <h3>Others</h3>
               <InputGrp
                 register={register}

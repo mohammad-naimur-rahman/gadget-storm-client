@@ -12,8 +12,22 @@
   background-color: rgba(0, 0, 0, 0.55);
 }
 
-.slider-chekbox {
-  color: black;
+.checked > label {
+  &::after {
+    background-color: $color-primary !important;
+  }
+}
+
+.slider-checkbox {
+  input {
+    border-color: rgba(0, 0, 0, 0.8) !important;
+    outline-color: rgba(0, 0, 0, 0.8) !important;
+  }
+
+  label {
+    color: rgba(0, 0, 0, 0.878) !important;
+    font-size: 16px !important;
+  }
 
   &:checked {
     color: $color-primary;
@@ -22,4 +36,10 @@
   &:focus {
     color: black;
   }
+}
+
+.preview-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
 }

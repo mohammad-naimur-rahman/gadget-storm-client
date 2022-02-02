@@ -30,7 +30,7 @@ const InputGroups = ({ title, singleGetter, singleSetter, getter, setter }) => {
         />
         <Button
           basic
-          color="green"
+          color="blue"
           type="button"
           onClick={() => handleAddGrp(singleGetter, singleSetter, getter, setter)}
           className="ms-3 add-mini-btn"

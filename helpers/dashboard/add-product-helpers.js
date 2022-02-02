@@ -53,6 +53,7 @@ export const handlePrice = (e, priceSchema, setpriceSchema) => {
 }
 
 export const handleImageUpload = (e, limit, imgArrSetter, showImgSetter) => {
+  imgArrSetter([])
   const formData = new FormData()
   const img = e.target.files
 
@@ -62,6 +63,7 @@ export const handleImageUpload = (e, limit, imgArrSetter, showImgSetter) => {
     toast.error(`You can only upload ${limit} images`)
     return
   }
+  showImgSetter(false)
   toast.info('Uploading image...')
   for (let i = 0; i < img.length; i++) {
     formData.append('file', img[i])
@@ -76,7 +78,7 @@ export const handleImageUpload = (e, limit, imgArrSetter, showImgSetter) => {
         imgArrSetter(imgarr)
         if (i === img.length - 1) {
           toast.success('All images are uploaded')
-          //showImgSetter(true)
+          showImgSetter(true)
         }
       } catch (error) {
         toast.error(error.message)

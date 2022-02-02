@@ -20,6 +20,11 @@
     "sku": "earphone"
   },
   {
+    "name": "Smart Watch",
+    "link": "smartWatch",
+    "sku": "smartWatch"
+  },
+  {
     "name": "Phone Gimbal",
     "link": "gimbal",
     "sku": "gimbal"

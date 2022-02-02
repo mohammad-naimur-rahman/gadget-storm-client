@@ -39,6 +39,10 @@ textarea {
   width: 400px;
 }
 
+input[type='file'] {
+  border: none;
+}
+
 .price {
   padding: 7px 10px;
 }
@@ -52,12 +56,6 @@ label {
 
 body {
   overflow-x: auto;
-}
-
-.img-thumbnail {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
 }
 
 ::-webkit-scrollbar-track {
