@@ -3,7 +3,6 @@ import { toast } from 'react-toastify'
 
 export const handleAddVariant = (getter, setter, schema) => {
   setter([...getter, schema])
-  console.log(getter)
 }
 
 export const handleVariant = (variants, setvariants, e, id) => {

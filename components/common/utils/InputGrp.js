@@ -9,7 +9,8 @@ export const InputGrp = ({
   type = 'text',
   accept,
   multiple,
-  description
+  description,
+  autoFocus
 }) => {
   return (
     <div className="d-flex flex-column mb-3">
@@ -26,6 +27,7 @@ export const InputGrp = ({
           accept={accept}
           multiple={multiple}
           {...register(name, { required })}
+          autoFocus={autoFocus}
         />
       </div>
       {description && (

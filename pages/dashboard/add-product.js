@@ -11,6 +11,9 @@ import BackCameraSensors from '@/components/pageComponents/Dashboard/AddProductP
 import { showConditionaly } from '@/helpers/helpers'
 import { handleChange, handleImageUpload, handlePrice } from '@/helpers/dashboard/add-product-helpers'
 import InputGroups from '@/components/pageComponents/Dashboard/AddProductPage/InputGroups'
+import axios from 'axios'
+import { API_URL } from '@/helpers/API'
+import { toast } from 'react-toastify'
 
 const AddProductPage = ({ data }) => {
   const {
@@ -66,20 +69,16 @@ const AddProductPage = ({ data }) => {
     discount: '',
     startDate: Date.now(),
     endDate: Date.now(),
-    totalCoupon: '',
-    images: image,
-    descriptionImages: descriptionImage
+    totalCoupon: ''
   })
 
   const [featured, setfeatured] = useState(false)
   const [supply, setsupply] = useState(true)
 
-  const onSubmit = (data) => {
-    console.log({
+  const onSubmit = async (data) => {
+    const datas = {
       ...data,
       category,
-      variants,
-      ...priceSchema,
       images: image,
       descriptionImages: descriptionImage,
       coupon,
@@ -91,7 +90,26 @@ const AddProductPage = ({ data }) => {
       dimensions,
       frontCamera: { sensor: frontCameraSensors, videoCapability: frontCameraVideoCapability },
       backCamera: { sensor: backCameraSensors, videoCapability: backCameraVideoCapability }
-    })
+    }
+    showConditionaly(category, ['smartPhone', 'tablet', 'laptop', 'smartWatch']) && (datas.variants = variants)
+    !showConditionaly(category, ['smartPhone', 'tablet', 'laptop', 'smartWatch']) &&
+      (datas = { ...datas, ...priceSchema })
+    try {
+      const response = await fetch(`${API_URL}/products`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(datas)
+      })
+      if (response.ok) {
+        toast.success('Product added successfully')
+      } else {
+        toast.error('Something went wrong')
+      }
+    } catch (error) {
+      toast.error('Something went wrong')
+    }
   }
 
   return (
@@ -116,6 +134,7 @@ const AddProductPage = ({ data }) => {
             label="Product Name"
             required={true}
             placeholder="Product Name"
+            autoFocus={true}
           />
           <InputGrp
             register={register}
