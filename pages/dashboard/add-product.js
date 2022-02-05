@@ -19,6 +19,7 @@ const AddProductPage = ({ data }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useForm()
 
@@ -67,13 +68,50 @@ const AddProductPage = ({ data }) => {
   const [coupon, setcoupon] = useState({
     code: '',
     discount: '',
-    startDate: Date.now(),
-    endDate: Date.now(),
+    startDate: undefined,
+    endDate: undefined,
     totalCoupon: ''
   })
 
   const [featured, setfeatured] = useState(false)
   const [supply, setsupply] = useState(true)
+
+  const resetOtherValues = () => {
+    setimage([])
+    setdescriptionImage([])
+    setpriceSchema({
+      basePrice: '',
+      discount: '',
+      price: 0
+    })
+    setdimensions({
+      length: '',
+      width: '',
+      thickness: ''
+    })
+    setdisplay({
+      displayType: '',
+      displaySize: '',
+      displayResolution: '',
+      displayScreenToBodyRatio: ''
+    })
+    setcoupon({
+      code: '',
+      discount: '',
+      startDate: undefined,
+      endDate: undefined,
+      totalCoupon: ''
+    })
+    setcolors([])
+    setfeatures([])
+    setboxContents([])
+    setports([])
+    setvariants([])
+    setfrontCameraSensors([])
+    setfrontCameraVideoCapability('')
+    setbackCameraSensors([])
+    setbackCameraVideoCapability('')
+  }
 
   const onSubmit = async (data) => {
     const datas = {
@@ -104,6 +142,8 @@ const AddProductPage = ({ data }) => {
       })
       if (response.ok) {
         toast.success('Product added successfully')
+        reset()
+        resetOtherValues()
       } else {
         toast.error('Something went wrong')
       }
