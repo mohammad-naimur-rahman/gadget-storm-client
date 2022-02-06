@@ -82,3 +82,14 @@ export const InputGrpN = ({
     </div>
   )
 }
+
+export const InputSelect = ({ label, name, getter, setter, children }) => {
+  return (
+    <div className="d-flex mb-3">
+      <label htmlFor={name}>{label}</label>
+      <select id={name} name={name} value={getter} onChange={(e) => setter(e.target.value)}>
+        {children}
+      </select>
+    </div>
+  )
+}

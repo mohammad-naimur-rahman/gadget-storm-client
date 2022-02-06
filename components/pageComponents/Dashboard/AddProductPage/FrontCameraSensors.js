@@ -1,7 +1,6 @@
 import { InputGrpN } from '@/components/common/utils/InputGrp'
 import { v4 as uuid } from 'uuid'
 import { handleAddVariant, handleDeleteVariant, handleVariant } from '@/helpers/dashboard/add-product-helpers'
-import React from 'react'
 import { FaPlus, FaTimesCircle } from 'react-icons/fa'
 import { Button } from 'semantic-ui-react'
 
@@ -26,30 +25,52 @@ const FrontCameraSensors = ({ frontCameraSensors, setfrontCameraSensors }) => {
                   value={sensor.megaPixels}
                   type="number"
                 />
+                <div className="d-flex mb-3">
+                  <label htmlFor="sensorType">Sensor Type</label>
+                  <select
+                    id="sensorType"
+                    name="sensorType"
+                    value={sensor.sensorType}
+                    onChange={(e) => handleVariant(frontCameraSensors, setfrontCameraSensors, e, sensor.id)}
+                  >
+                    <option>- Select One -</option>
+                    <option value="Primary">Primary</option>
+                    <option value="Ultra-Wide">Ultra-Wide</option>
+                    <option value="depth">depth</option>
+                  </select>
+                </div>
+                {sensor.sensorType === 'Ultra-Wide' && (
+                  <InputGrpN
+                    name="fieldOfView"
+                    label="Field of View(In degrees)"
+                    placeholder="Field of View(For Ultra-Wide Lens)"
+                    onChange={(e) => handleVariant(frontCameraSensors, setfrontCameraSensors, e, sensor.id)}
+                    value={sensor.fieldOfView}
+                    type="number"
+                  />
+                )}
                 <InputGrpN
-                  name="sensorType"
-                  label="Sensor Type"
-                  placeholder="(Ex: Primary, Telephoto, Ultra-Wide, etc)"
-                  required={true}
+                  name="aperture"
+                  label="Aperture"
+                  placeholder="Aperture (Ex: 1.8)"
                   onChange={(e) => handleVariant(frontCameraSensors, setfrontCameraSensors, e, sensor.id)}
-                  value={sensor.sensorType}
-                />
-                <InputGrpN
-                  name="zoom"
-                  label="Zoom (X times)"
-                  placeholder="Zoom (For Telephoto Lens)"
-                  onChange={(e) => handleVariant(frontCameraSensors, setfrontCameraSensors, e, sensor.id)}
-                  value={sensor.zoom}
+                  value={sensor.aperture}
                   type="number"
                 />
-                <InputGrpN
-                  name="fieldOfView"
-                  label="Field of View(In degrees)"
-                  placeholder="Field of View(For Ultra-Wide Lens)"
-                  onChange={(e) => handleVariant(frontCameraSensors, setfrontCameraSensors, e, sensor.id)}
-                  value={sensor.fieldOfView}
-                  type="number"
-                />
+                <div className="d-flex mb-3">
+                  <label htmlFor="ois">OIS / EIS</label>
+                  <select
+                    id="ois"
+                    name="ois"
+                    value={sensor.ois}
+                    onChange={(e) => handleVariant(frontCameraSensors, setfrontCameraSensors, e, sensor.id)}
+                  >
+                    <option>- Select One -</option>
+                    <option value="OIS">OIS</option>
+                    <option value="EIS">EIS</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
                 <Button
                   basic
                   className="d-flex align-items-center justify-content-center"
@@ -72,7 +93,9 @@ const FrontCameraSensors = ({ frontCameraSensors, setfrontCameraSensors }) => {
             megaPixels: '',
             sensorType: '',
             zoom: '',
-            fieldOfView: ''
+            fieldOfView: '',
+            aperture: '',
+            ois: ''
           })
         }
         basic

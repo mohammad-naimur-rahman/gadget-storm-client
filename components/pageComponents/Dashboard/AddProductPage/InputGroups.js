@@ -2,7 +2,7 @@ import { InputGrpN } from '@/components/common/utils/InputGrp'
 import { handleAddGrp, handleDeleteGrp } from '@/helpers/dashboard/add-product-helpers'
 import { Button } from 'semantic-ui-react'
 
-const InputGroups = ({ title, singleGetter, singleSetter, getter, setter }) => {
+const InputGroups = ({ title, singleGetter, singleSetter, getter, setter, type = 'text' }) => {
   return (
     <>
       <h3>{title}s</h3>
@@ -27,12 +27,13 @@ const InputGroups = ({ title, singleGetter, singleSetter, getter, setter }) => {
           placeholder={`Input a ${title}`}
           value={singleGetter}
           onChange={(e) => singleSetter(e.target.value)}
+          type={type}
         />
         <Button
           basic
           color="blue"
           type="button"
-          onClick={() => handleAddGrp(singleGetter, singleSetter, getter, setter)}
+          onClick={() => handleAddGrp(singleGetter, singleSetter, getter, setter, type)}
           className="ms-3 add-mini-btn"
         >
           +

@@ -93,9 +93,9 @@ export const handleChange = (e, getter, setter) => {
   })
 }
 
-export const handleAddGrp = (value, setvalue, getter, setter) => {
+export const handleAddGrp = (value, setvalue, getter, setter, type) => {
   if (value) {
-    setvalue('')
+    type === 'color' ? setvalue('#0062B1') : setvalue('')
     setter([...getter, value])
   }
 }

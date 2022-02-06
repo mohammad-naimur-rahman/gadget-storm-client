@@ -1,5 +1,5 @@
 import DLayout from '@/components/common/Layout/DLayout'
-import { InputGrp, InputGrpN } from '@/components/common/utils/InputGrp'
+import { InputGrp, InputGrpN, InputSelect } from '@/components/common/utils/InputGrp'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Button, Checkbox } from 'semantic-ui-react'
@@ -14,6 +14,7 @@ import InputGroups from '@/components/pageComponents/Dashboard/AddProductPage/In
 import axios from 'axios'
 import { API_URL } from '@/helpers/API'
 import { toast } from 'react-toastify'
+import Colors from '@/components/pageComponents/Dashboard/AddProductPage/Colors'
 
 const AddProductPage = ({ data }) => {
   const {
@@ -37,8 +38,10 @@ const AddProductPage = ({ data }) => {
   const [showDescImgPreview, setshowDescImgPreview] = useState(false)
   const [frontCameraSensors, setfrontCameraSensors] = useState([])
   const [frontCameraVideoCapability, setfrontCameraVideoCapability] = useState('')
+  const [frontCameraVideoCapabilities, setfrontCameraVideoCapabilities] = useState([])
   const [backCameraSensors, setbackCameraSensors] = useState([])
   const [backCameraVideoCapability, setbackCameraVideoCapability] = useState('')
+  const [backCameraVideoCapabilities, setbackCameraVideoCapabilities] = useState([])
 
   const [dimensions, setdimensions] = useState({
     length: '',
@@ -50,7 +53,8 @@ const AddProductPage = ({ data }) => {
     displayType: '',
     displaySize: '',
     displayResolution: '',
-    displayScreenToBodyRatio: ''
+    displayScreenToBodyRatio: '',
+    refreshRate: ''
   })
 
   const [feature, setfeature] = useState('')
@@ -62,7 +66,6 @@ const AddProductPage = ({ data }) => {
   const [port, setport] = useState('')
   const [ports, setports] = useState([])
 
-  const [color, setcolor] = useState('')
   const [colors, setcolors] = useState([])
 
   const [coupon, setcoupon] = useState({
@@ -71,6 +74,14 @@ const AddProductPage = ({ data }) => {
     startDate: undefined,
     endDate: undefined,
     totalCoupon: ''
+  })
+
+  const [processor, setprocessor] = useState({
+    brand: '',
+    model: '',
+    core: '',
+    details: '',
+    gpu: ''
   })
 
   const [featured, setfeatured] = useState(false)
@@ -93,7 +104,8 @@ const AddProductPage = ({ data }) => {
       displayType: '',
       displaySize: '',
       displayResolution: '',
-      displayScreenToBodyRatio: ''
+      displayScreenToBodyRatio: '',
+      refreshRate: ''
     })
     setcoupon({
       code: '',
@@ -109,8 +121,12 @@ const AddProductPage = ({ data }) => {
     setvariants([])
     setfrontCameraSensors([])
     setfrontCameraVideoCapability('')
+    setfrontCameraVideoCapabilities([])
     setbackCameraSensors([])
     setbackCameraVideoCapability('')
+    setbackCameraVideoCapabilities([])
+    setfeatured(false)
+    setsupply(true)
   }
 
   const onSubmit = async (data) => {
@@ -125,29 +141,28 @@ const AddProductPage = ({ data }) => {
       features,
       boxContents,
       display,
+      processor,
       dimensions,
-      frontCamera: { sensor: frontCameraSensors, videoCapability: frontCameraVideoCapability },
-      backCamera: { sensor: backCameraSensors, videoCapability: backCameraVideoCapability }
+      featured,
+      supply,
+      frontCamera: { sensor: frontCameraSensors, videoCapability: frontCameraVideoCapabilities },
+      backCamera: { sensor: backCameraSensors, videoCapability: backCameraVideoCapabilities }
     }
     showConditionaly(category, ['smartPhone', 'tablet', 'laptop', 'smartWatch']) && (datas.variants = variants)
     !showConditionaly(category, ['smartPhone', 'tablet', 'laptop', 'smartWatch']) &&
       (datas = { ...datas, ...priceSchema })
     try {
-      const response = await fetch(`${API_URL}/products`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(datas)
-      })
-      if (response.ok) {
+      const response = await axios.post(`${API_URL}/products`, datas)
+      console.log(response?.data?.data?.data)
+      if (response.status === 201) {
         toast.success('Product added successfully')
         reset()
         resetOtherValues()
       } else {
-        toast.error('Something went wrong')
+        toast.error('Something went wrong!')
       }
     } catch (error) {
+      console.log(error)
       toast.error('Something went wrong')
     }
   }
@@ -157,16 +172,13 @@ const AddProductPage = ({ data }) => {
       <div className="d-flex">
         <form onSubmit={handleSubmit(onSubmit)}>
           <h2>Add Product</h2>
-          <div className="d-flex mb-3">
-            <label htmlFor="category">Choose Category :</label>
-            <select value={category} onChange={(e) => setcategory(e.target.value)}>
-              {data?.map((item) => (
-                <option value={item.sku} key={item.name}>
-                  {item.name}
-                </option>
-              ))}
-            </select>
-          </div>
+          <InputSelect label="Choose Category :" name="category" getter={category} setter={setcategory}>
+            {data?.map((item) => (
+              <option value={item.sku} key={item.name}>
+                {item.name}
+              </option>
+            ))}
+          </InputSelect>
           <InputGrp
             register={register}
             errors={errors}
@@ -270,18 +282,20 @@ const AddProductPage = ({ data }) => {
                 frontCameraSensors={frontCameraSensors}
                 setfrontCameraSensors={setfrontCameraSensors}
               />
-              <InputGrpN
-                label="Video Capability"
-                placeholder="Front Camera Video Capability"
-                onChange={(e) => setfrontCameraVideoCapability(e.target.value)}
-                value={frontCameraVideoCapability}
+              <InputGroups
+                title="Front Camera Video Capability"
+                singleGetter={frontCameraVideoCapability}
+                singleSetter={setfrontCameraVideoCapability}
+                getter={frontCameraVideoCapabilities}
+                setter={setfrontCameraVideoCapabilities}
               />
               <BackCameraSensors backCameraSensors={backCameraSensors} setbackCameraSensors={setbackCameraSensors} />
-              <InputGrpN
-                label="Video Capability"
-                placeholder="Back Camera Video Capability"
-                onChange={(e) => setbackCameraVideoCapability(e.target.value)}
-                value={backCameraVideoCapability}
+              <InputGroups
+                title="Back Camera Video Capability"
+                singleGetter={backCameraVideoCapability}
+                singleSetter={setbackCameraVideoCapability}
+                getter={backCameraVideoCapabilities}
+                setter={setbackCameraVideoCapabilities}
               />
             </>
           )}
@@ -295,12 +309,41 @@ const AddProductPage = ({ data }) => {
                 label="Operating System"
                 placeholder="(Ex: Android, iOS, Windows)"
               />
-              <InputGrp
-                register={register}
-                errors={errors}
-                name="processor"
-                label="Processor"
-                placeholder="Processor"
+              <InputGrpN
+                name="brand"
+                label="Processor Model Name"
+                placeholder="Processor Model Name"
+                onChange={(e) => handleChange(e, processor, setprocessor)}
+                value={processor.brand}
+              />
+              <InputGrpN
+                name="model"
+                label="Processor Model"
+                placeholder="Processor Model"
+                onChange={(e) => handleChange(e, processor, setprocessor)}
+                value={processor.model}
+              />
+              <InputGrpN
+                name="core"
+                label="Number of Core"
+                placeholder="(Ex: 2, 4, 8)"
+                onChange={(e) => handleChange(e, processor, setprocessor)}
+                value={processor.core}
+                type="number"
+              />
+              <InputGrpN
+                name="details"
+                label="Processor Details"
+                placeholder="(Ex: 2 * 2.2GHz, 6 * 1.8GHz)"
+                onChange={(e) => handleChange(e, processor, setprocessor)}
+                value={processor.details}
+              />
+              <InputGrpN
+                name="gpu"
+                label="GPU"
+                placeholder="GPU Name & Detils"
+                onChange={(e) => handleChange(e, processor, setprocessor)}
+                value={processor.gpu}
               />
               <h3>Dimensions</h3>
               <InputGrpN
@@ -361,9 +404,10 @@ const AddProductPage = ({ data }) => {
               <InputGrp
                 register={register}
                 errors={errors}
-                name="charginSpeed"
+                name="chargingSpeed"
                 label="Charging Speed"
                 placeholder="Charging Speed (In Watt)"
+                type="number"
               />
             </>
           )}
@@ -398,6 +442,14 @@ const AddProductPage = ({ data }) => {
                 placeholder="(Ex: 85%)"
                 onChange={(e) => handleChange(e, display, setdisplay)}
                 value={display.displayScreenToBodyRatio}
+              />
+              <InputGrpN
+                name="refreshRate"
+                label="Screen Refresh Rate"
+                placeholder="Refresh Rate (In Hz)"
+                onChange={(e) => handleChange(e, display, setdisplay)}
+                value={display.refreshRate}
+                type="number"
               />
             </>
           )}
@@ -482,7 +534,7 @@ const AddProductPage = ({ data }) => {
               type="number"
             />
           )}
-          <InputGroups title="Color" singleGetter={color} singleSetter={setcolor} getter={colors} setter={setcolors} />
+          <Colors colors={colors} setcolors={setcolors} />
           {showConditionaly(category, ['dslr', 'actionCam', 'drone']) && (
             <>
               <h3>Camera</h3>
