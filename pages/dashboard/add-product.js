@@ -162,7 +162,7 @@ const AddProductPage = ({ data }) => {
         toast.error('Something went wrong!')
       }
     } catch (error) {
-      console.log(error)
+      console.log(error.message)
       toast.error('Something went wrong')
     }
   }
