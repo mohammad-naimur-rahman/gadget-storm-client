@@ -153,7 +153,7 @@ const AddProductPage = ({ data }) => {
       (datas = { ...datas, ...priceSchema })
     try {
       const response = await axios.post(`${API_URL}/products`, datas)
-      console.log(response?.data?.data?.data)
+      console.log('PRODUCT_DATA', response?.data?.data?.data)
       if (response.status === 201) {
         toast.success('Product added successfully')
         reset()
