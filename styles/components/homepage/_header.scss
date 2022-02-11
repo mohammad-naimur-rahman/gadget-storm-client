@@ -1,0 +1,33 @@
+.slick-arrow {
+  background-color: gray !important;
+  z-index: 10;
+  color: green !important;
+  border-radius: 50%;
+}
+
+.slick-prev {
+  left: 5px !important;
+}
+
+.slick-next {
+  right: 5px !important;
+}
+
+.slick-dots {
+  bottom: 0 !important;
+}
+
+.featured-product-card {
+  h2 {
+    font-size: 30px;
+    color: $color-primary;
+  }
+
+  h3 {
+    margin: 0;
+  }
+
+  h1 {
+    color: royalblue;
+  }
+}
