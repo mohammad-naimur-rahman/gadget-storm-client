@@ -1,13 +1,23 @@
 import React from 'react'
 import Slider from 'react-slick'
 
+const ArrowMan = ({ className, style, onClick }) => {
+  return (
+    <p className={className} style={{ ...style, display: 'block', background: 'red' }} onClick={onClick}>
+      Prev
+    </p>
+  )
+}
+
 const FeaturedSlider = ({ featured }) => {
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
-    slidesToScroll: 1
+    slidesToScroll: 1,
+    prevArrow: <ArrowMan />,
+    nextArrow: <ArrowMan />
   }
 
   return (
