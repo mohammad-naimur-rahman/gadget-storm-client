@@ -1,27 +1,26 @@
 import React from 'react'
 import Slider from 'react-slick'
+import { Button } from 'semantic-ui-react'
 
 const ArrowMan = ({ className, style, onClick }) => {
-  return (
-    <p className={className} style={{ ...style, display: 'block', background: 'red' }} onClick={onClick}>
-      Prev
-    </p>
-  )
+  return <div className={className} style={{ ...style, display: 'block', background: 'red' }} onClick={onClick}></div>
 }
 
 const FeaturedSlider = ({ featured }) => {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 1500,
+    autoplaySpeed: 4000,
     slidesToShow: 1,
     slidesToScroll: 1,
+    autoplay: true,
     prevArrow: <ArrowMan />,
     nextArrow: <ArrowMan />
   }
 
   return (
-    <div className="border">
+    <div className="shadow shadow-lg">
       <Slider {...settings}>
         {featured?.map((product) => (
           <div key={product.id}>
@@ -31,6 +30,7 @@ const FeaturedSlider = ({ featured }) => {
                 <h2>{product.brand}</h2>
                 <h3>{product.name}</h3>
                 <h1>Starting from ${product.price}</h1>
+                <Button primary>See Details</Button>
               </div>
             </div>
           </div>

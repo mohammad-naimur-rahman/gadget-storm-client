@@ -1,7 +1,6 @@
 .slick-arrow {
   background-color: gray !important;
   z-index: 10;
-  color: green !important;
   border-radius: 50%;
 }
 
@@ -25,9 +24,32 @@
 
   h3 {
     margin: 0;
+    font-size: 25px;
   }
 
   h1 {
-    color: royalblue;
+    color: $color-text;
   }
+}
+
+.offer-card {
+  transition: all 0.3s;
+
+  h3 {
+    margin: 15px 0;
+  }
+
+  &:hover &-img {
+    transform: scale(1.1);
+  }
+
+  &-img {
+    transition: all 0.3s;
+    animation: flip 5s linear infinite;
+  }
+}
+
+.notice-text {
+  width: max-content;
+  animation: marquee 25s linear infinite;
 }

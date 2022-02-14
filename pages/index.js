@@ -3,13 +3,15 @@ import { API_URL } from '@/helpers/API'
 import Layout from '@/components/common/Layout'
 import Categories from '@/components/pageComponents/Homepage/Categories'
 import Header from '@/components/pageComponents/Homepage/Header'
+import Notice from '@/components/pageComponents/Homepage/Notice'
 
-export default function Home({ data, featured }) {
+export default function Home({ data, featured, notice }) {
   console.log(featured)
   return (
     <Layout title="Gadget Strom | Home">
       <Categories />
       <Header featured={featured} />
+      <Notice notice={notice} />
     </Layout>
   )
 }
@@ -20,7 +22,11 @@ export async function getServerSideProps() {
   return {
     props: {
       data: data.data,
-      featured: featured.data?.data?.data
+      featured: featured.data?.data?.data,
+      notice: {
+        notice:
+          'Due to pandamic, some of the products may not available in our store. Please check back later if you can not find a product. Sorry for the inconvenience.'
+      }
     }
   }
 }
