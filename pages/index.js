@@ -22,11 +22,12 @@ export default function Home({ data, featured, featuredTop, notice }) {
 
 export async function getServerSideProps() {
   const { data } = await axios.get(`${API_URL}/products`)
-  const featured = await axios.get(`${API_URL}/products?featured=true&fields=name,price,images,brand`)
+  const featured = await axios.get(`${API_URL}/products?featured=true&fields=name,price,images,brand,slug`)
+  const featuredTop = await axios.get(`${API_URL}/products?featured=true&fields=name,price,images,brand&limit=4`)
   return {
     props: {
       data: data.data,
-      featuredTop: featured.data?.data?.data,
+      featuredTop: featuredTop.data?.data?.data,
       featured: featured.data?.data?.data,
       notice: {
         notice:

@@ -20,11 +20,11 @@ const FeaturedSlider = ({ featured }) => {
   }
 
   return (
-    <div className="shadow shadow-lg">
+    <div className="shadow shadow-sm">
       <Slider {...settings}>
         {featured?.map((product) => (
           <div key={product.id}>
-            <div className="d-flex featured-product-card">
+            <div className="d-flex featured-slider-card">
               <img src={product.images[0]} alt={product.name} className="w-50" />
               <div className="w-100 d-flex flex-column justify-content-center align-items-center">
                 <h2>{product.brand}</h2>
