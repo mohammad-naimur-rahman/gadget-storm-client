@@ -20,7 +20,7 @@ const FeaturedSlider = ({ featured }) => {
   }
 
   return (
-    <div className="shadow shadow-sm">
+    <div className="shadow shadow-sm bg-white">
       <Slider {...settings}>
         {featured?.map((product) => (
           <div key={product.id}>

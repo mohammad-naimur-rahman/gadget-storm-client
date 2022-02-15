@@ -21,6 +21,26 @@
     }
   }
 
+  &__price {
+    margin-top: auto !important;
+
+    h4 {
+      color: $color-text-2;
+    }
+
+    h3 {
+      color: $color-primary;
+    }
+
+    p {
+      font-size: 14px;
+    }
+
+    .negative-margin-top {
+      margin-bottom: -10px;
+    }
+  }
+
   &:hover &__add-to-wishlist,
   &:hover &__add-to-cart {
     opacity: 1;

@@ -6,7 +6,7 @@ import ReactTooltip from 'react-tooltip'
 
 const FeaturedProductCard = ({ pd }) => {
   return (
-    <div className="featured-product-card d-flex flex-column bg-white shadow shadow-sm p-3 mb-3">
+    <div className="featured-product-card d-flex flex-wrap flex-column bg-white shadow shadow-sm p-3 mb-3">
       {isNew(pd.createdAt) && (
         <div className="featured-product-card__new">
           <p>New</p>
@@ -26,7 +26,24 @@ const FeaturedProductCard = ({ pd }) => {
           {pd.brand} {pd.name}
         </a>
       </Link>
-      <h3 className="py-3 text-success">${pd.price}</h3>
+      <div className="pt-3 d-flex justify-content-between align-items-center featured-product-card__price">
+        <h4>Starting from</h4>
+        <div className="d-flex flex-column justify-content-center align-items-center">
+          {pd.discount && (
+            <div className="d-flex negative-margin-top">
+              <p className="text-danger">
+                <s>${pd.basePrice}</s>
+              </p>
+              {pd.discount.includes('%') ? (
+                <p className="ps-2 py-0 my-0 text-succes">{pd.discount} off</p>
+              ) : (
+                <p className="ps-2 py-0 my-0 text-success">${pd.discount} off</p>
+              )}
+            </div>
+          )}
+          <h3 className="pt-0 mt-0">${pd.price}</h3>
+        </div>
+      </div>
     </div>
   )
 }

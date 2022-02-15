@@ -610,14 +610,14 @@ const AddProductPage = ({ data }) => {
               slider
               label="Featured"
               checked={featured}
-              onChange={(e) => setfeatured(!featured)}
+              onChange={() => setfeatured(!featured)}
             />
             <Checkbox
               className="slider-checkbox"
               slider
               label="Supply"
               checked={supply}
-              onChange={(e) => setsupply(!supply)}
+              onChange={() => setsupply(!supply)}
             />
           </div>
           <Button type="submit" primary className="d-block my-3 px-5">
