@@ -4,14 +4,18 @@ import Layout from '@/components/common/Layout'
 import Categories from '@/components/pageComponents/Homepage/Categories'
 import Header from '@/components/pageComponents/Homepage/Header'
 import Notice from '@/components/pageComponents/Homepage/Notice'
+import FeaturedCategories from '@/components/pageComponents/Homepage/FeaturedCategories'
+import FeaturedProducts from '@/components/pageComponents/Homepage/FeaturedProducts'
 
-export default function Home({ data, featured, notice }) {
+export default function Home({ data, featured, featuredTop, notice }) {
   console.log(featured)
   return (
     <Layout title="Gadget Strom | Home">
       <Categories />
-      <Header featured={featured} />
+      <Header featured={featuredTop} />
       <Notice notice={notice} />
+      <FeaturedCategories />
+      <FeaturedProducts featured={featured} />
     </Layout>
   )
 }
@@ -22,6 +26,7 @@ export async function getServerSideProps() {
   return {
     props: {
       data: data.data,
+      featuredTop: featured.data?.data?.data,
       featured: featured.data?.data?.data,
       notice: {
         notice:

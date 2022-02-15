@@ -23,7 +23,6 @@
   }
 
   h3 {
-    margin: 0;
     font-size: 25px;
   }
 
@@ -52,4 +51,17 @@
 .notice-text {
   width: max-content;
   animation: marquee 25s linear infinite;
+}
+
+.featured-cat-card {
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  cursor: pointer;
+
+  img {
+    max-width: 60px;
+    width: 100%;
+    height: auto;
+  }
 }

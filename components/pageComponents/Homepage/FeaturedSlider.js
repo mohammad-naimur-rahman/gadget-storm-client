@@ -28,9 +28,11 @@ const FeaturedSlider = ({ featured }) => {
               <img src={product.images[0]} alt={product.name} className="w-50" />
               <div className="w-100 d-flex flex-column justify-content-center align-items-center">
                 <h2>{product.brand}</h2>
-                <h3>{product.name}</h3>
+                <h3 className="pt-3 pb-4">{product.name}</h3>
                 <h1>Starting from ${product.price}</h1>
-                <Button primary>See Details</Button>
+                <Button primary className="mt-3">
+                  See Details
+                </Button>
               </div>
             </div>
           </div>

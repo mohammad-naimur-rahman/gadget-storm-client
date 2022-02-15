@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Smartphone",
+    "link": "smartphone",
+    "sku": "smartPhone",
+    "icon": "/pages/homepage/featuredCategories/mobile-app.png"
+  },
+  {
+    "name": "Laptop",
+    "link": "laptop",
+    "sku": "laptop",
+    "icon": "/pages/homepage/featuredCategories/laptop.png"
+  },
+  {
+    "name": "Earphones",
+    "link": "earphone",
+    "sku": "earphone",
+    "icon": "/pages/homepage/featuredCategories/headphones.png"
+  },
+  {
+    "name": "Smart Watch",
+    "link": "smartWatch",
+    "sku": "smartWatch",
+    "icon": "/pages/homepage/featuredCategories/smart-watch.png"
+  },
+  {
+    "name": "Bluetooth Speaker",
+    "link": "bluetooth-speaker",
+    "sku": "bluetoothSpeaker",
+    "icon": "/pages/homepage/featuredCategories/loud-speaker.png"
+  },
+  {
+    "name": "Power Bank",
+    "link": "power-bank",
+    "sku": "powerBank",
+    "icon": "/pages/homepage/featuredCategories/powerbank.png"
+  }
+]
