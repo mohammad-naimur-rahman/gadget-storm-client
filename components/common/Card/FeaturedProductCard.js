@@ -1,3 +1,4 @@
+import isNew from '@/helpers/isNew'
 import Link from 'next/link'
 import React from 'react'
 import { FaCartPlus, FaHeart } from 'react-icons/fa'
@@ -6,7 +7,7 @@ import ReactTooltip from 'react-tooltip'
 const FeaturedProductCard = ({ pd }) => {
   return (
     <div className="featured-product-card d-flex flex-column bg-white shadow shadow-sm p-3 mb-3">
-      {pd.isNew && (
+      {isNew(pd.createdAt) && (
         <div className="featured-product-card__new">
           <p>New</p>
         </div>
