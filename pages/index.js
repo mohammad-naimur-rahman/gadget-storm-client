@@ -1,11 +1,11 @@
 import axios from 'axios'
 import { API_URL } from '@/helpers/API'
 import Layout from '@/components/common/Layout'
-import Categories from '@/components/pageComponents/Homepage/Categories'
 import Header from '@/components/pageComponents/Homepage/Header'
 import Notice from '@/components/pageComponents/Homepage/Notice'
 import FeaturedCategories from '@/components/pageComponents/Homepage/FeaturedCategories'
 import FeaturedProducts from '@/components/pageComponents/Homepage/FeaturedProducts'
+import Categories from '@/components/pageComponents/Homepage/Categories'
 
 export default function Home({ data, featured, featuredTop, notice }) {
   console.log(featured)
@@ -25,7 +25,7 @@ export async function getServerSideProps() {
   const featured = await axios.get(
     `${API_URL}/products?featured=true&fields=name,basePrice,discount,price,images,brand,slug,createdAt&limit=10`
   )
-  const featuredTop = await axios.get(`${API_URL}/products?featured=true&fields=name,price,images,brand&limit=4`)
+  const featuredTop = await axios.get(`${API_URL}/products?featured=true&fields=name,slug,price,images,brand&limit=4`)
   return {
     props: {
       data: data.data,

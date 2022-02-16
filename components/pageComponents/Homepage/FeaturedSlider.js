@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 import Slider from 'react-slick'
 import { Button } from 'semantic-ui-react'
@@ -30,9 +31,11 @@ const FeaturedSlider = ({ featured }) => {
                 <h2>{product.brand}</h2>
                 <h3 className="pt-3 pb-4">{product.name}</h3>
                 <h1>Starting from ${product.price}</h1>
-                <Button primary className="mt-3">
-                  See Details
-                </Button>
+                <Link href={`/products/${product.slug}`}>
+                  <Button primary className="mt-3">
+                    See Details
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
