@@ -6,7 +6,7 @@ const FeaturedProducts = ({ featured }) => {
   return (
     <div className="container">
       <Heading title="Featured Products" subtitle="Check & Get Your Desired Product !" />
-      <div className="d-flex featured-products-container pb-5">
+      <div className="d-flex flex-wrap justify-content-center featured-products-container pb-5">
         {featured.map((pd) => (
           <FeaturedProductCard key={pd.id} pd={pd} />
         ))}

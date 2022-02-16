@@ -6,7 +6,7 @@ import ReactTooltip from 'react-tooltip'
 
 const FeaturedProductCard = ({ pd }) => {
   return (
-    <div className="featured-product-card d-flex flex-wrap flex-column bg-white shadow shadow-sm p-3 mb-3">
+    <div className="featured-product-card d-flex flex-column bg-white shadow shadow-sm p-3">
       {isNew(pd.createdAt) && (
         <div className="featured-product-card__new">
           <p>New</p>
