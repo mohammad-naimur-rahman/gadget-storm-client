@@ -1,5 +1,26 @@
+.slider {
+  img {
+    aspect-ratio: 1 / 1;
+  }
+}
+
 .thumb {
   img {
     aspect-ratio: 1 / 1;
+  }
+}
+
+.breadcrumb {
+  &-links > * {
+    margin: 0 10px;
+  }
+
+  a {
+    transition: all 0.3s;
+    font-size: 16px;
+  }
+
+  a:hover {
+    text-decoration: underline;
   }
 }

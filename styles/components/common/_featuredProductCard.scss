@@ -8,6 +8,10 @@
   transition: all 0.3s;
   overflow: hidden;
 
+  &:hover {
+    box-shadow: $box-shadow;
+  }
+
   img {
     aspect-ratio: 1 / 1;
     object-fit: cover;
