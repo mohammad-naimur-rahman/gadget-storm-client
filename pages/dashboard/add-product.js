@@ -250,7 +250,7 @@ const AddProductPage = ({ data }) => {
           {showDescImgPreview && (
             <div className="d-flex mb-3">
               {[...descriptionImage].map((img, i) => (
-                <img key={i} src={img} alt={i} className="preview-img" />
+                <img key={i} src={img} alt={i} className="preview-img m-1" />
               ))}
             </div>
           )}

@@ -24,3 +24,30 @@
     text-decoration: underline;
   }
 }
+
+.variant-card-holder {
+  gap: 10px;
+}
+
+.variant-card {
+  width: 140px;
+  height: 150px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: 1px solid transparent;
+
+  &:hover {
+    box-shadow: $box-shadow;
+  }
+
+  &-selected {
+    box-shadow: $box-shadow;
+    border: 1px solid $color-black-3;
+  }
+}
+
+.icon-value {
+  img {
+    width: 20px;
+  }
+}

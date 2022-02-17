@@ -53,7 +53,7 @@ const BackCameraSensors = ({ backCameraSensors, setbackCameraSensors }) => {
                     type="number"
                   />
                 )}
-                {sensor.sensorType === 'Ulta-Wide' && (
+                {sensor.sensorType === 'Ultra-Wide' && (
                   <InputGrpN
                     name="fieldOfView"
                     label="Field of View(In degrees)"
