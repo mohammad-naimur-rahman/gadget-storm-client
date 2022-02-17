@@ -2,44 +2,38 @@ import Layout from '@/components/common/Layout'
 import Categories from '@/components/pageComponents/Homepage/Categories'
 import BreadCrumb from '@/components/pageComponents/ProductDetailsPage/BreadCrumb'
 import { API_URL } from '@/helpers/API'
+import { selectedSetter, setSelected } from '@/helpers/dashboard/product-details-helpers'
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
+import ReactTooltip from 'react-tooltip'
+import { Button } from 'semantic-ui-react'
 const Carousel = require('react-responsive-carousel').Carousel
 
 const ProductDetailsPage = ({ product }) => {
+  console.log(product)
   const hasIt = (property) => product.hasOwnProperty(proerty)
-  const isNonEmpty = (arr) => arr.length !== 0
+  const isNonEmpty = (elem) => product[elem].length !== 0
 
   const [pdVariants, setpdVariants] = useState([])
   const [selectedVariant, setselectedVariant] = useState({})
 
+  const [pdColors, setpdColors] = useState([])
+  const [selectedColor, setselectedColor] = useState({})
+
   useEffect(() => {
-    if (product.variants) {
-      if (product.variants.length === 1) {
-        const obj = [product.variants[0]]
-        setpdVariants({
-          ...obj,
-          selected: true
-        })
-      } else {
-        const newArr = product.variants.map((variant) => {
-          return { ...variant, selected: false }
-        })
-        setpdVariants(newArr)
-      }
-    }
+    selectedSetter(product.variants, setpdVariants)
   }, [product.variants])
 
   const selectVariant = (id) => {
-    const newArr = pdVariants.map((el) => {
-      el.selected = false
-      if (el._id === id) {
-        el.selected = true
-        setselectedVariant(el)
-      }
-      return el
-    })
-    setpdVariants(newArr)
+    setSelected(id, pdVariants, setpdVariants, setselectedVariant)
+  }
+
+  useEffect(() => {
+    selectedSetter(product.colors, setpdColors)
+  }, [product.colors])
+
+  const selectColor = (id) => {
+    setSelected(id, pdColors, setpdColors, setselectedColor)
   }
 
   //console.log(product)
@@ -68,11 +62,12 @@ const ProductDetailsPage = ({ product }) => {
               </h2>
               {product.variants && (
                 <>
+                  {/* ---VARIANTS--- */}
                   <h3 className="pt-4 pb-3">Choose Variant</h3>
                   <div className="d-flex flex-wrap w-100 align-items-center variant-card-holder">
-                    {pdVariants.map((vr, i) => (
+                    {pdVariants.map((vr) => (
                       <div
-                        key={i}
+                        key={vr.id}
                         className={`variant-card ${
                           vr.selected ? 'variant-card-selected' : ''
                         } p-3 p-lg-4 shadow shadow-sm bg-white`}
@@ -104,9 +99,10 @@ const ProductDetailsPage = ({ product }) => {
                             </h3>
                           </div>
                         )}
-                        <div className="d-flex icon-value align-items-center py-1">
+                        <div className="d-flex icon-value align-items-center pb-1 pt-3">
                           <img src="/pages/productDetails/price.png" />
                           <div className="d-flex flex-column">
+                            <h2 className="ms-3">${vr.price}</h2>
                             {vr.discount && (
                               <div className="d-flex negative-margin">
                                 <p className="small text-danger ps-2">
@@ -119,7 +115,6 @@ const ProductDetailsPage = ({ product }) => {
                                 )}
                               </div>
                             )}
-                            <h3 className="ms-3">${vr.price}</h3>
                           </div>
                         </div>
                       </div>
@@ -127,6 +122,29 @@ const ProductDetailsPage = ({ product }) => {
                   </div>
                 </>
               )}
+
+              {isNonEmpty('colors') && (
+                <>
+                  <h3 className="pt-4 pb-3">Choose Color</h3>
+                  <div className="d-flex flex-wrap w-100 align-items-center color-card-holder">
+                    {pdColors.map((color) => (
+                      <div
+                        key={color.id}
+                        className={`color-card ${color.selected ? 'color-card-selected' : ''} shadow shadow-sm`}
+                        onClick={() => selectColor(color._id)}
+                        data-for={color._id}
+                        data-tip={color.colorName}
+                        style={{ backgroundColor: color.colorCode }}
+                      >
+                        <ReactTooltip id={color._id} place="top" />
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
+              <Button color="blue" className="mt-4">
+                Add to cart
+              </Button>
             </div>
           </div>
         </div>
