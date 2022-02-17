@@ -38,10 +38,8 @@ const AddProductPage = ({ data }) => {
   const [showDescImgPreview, setshowDescImgPreview] = useState(false)
   const [frontCameraSensors, setfrontCameraSensors] = useState([])
   const [frontCameraVideoCapability, setfrontCameraVideoCapability] = useState('')
-  const [frontCameraVideoCapabilities, setfrontCameraVideoCapabilities] = useState([])
   const [backCameraSensors, setbackCameraSensors] = useState([])
   const [backCameraVideoCapability, setbackCameraVideoCapability] = useState('')
-  const [backCameraVideoCapabilities, setbackCameraVideoCapabilities] = useState([])
 
   const [dimensions, setdimensions] = useState({
     length: '',
@@ -121,10 +119,8 @@ const AddProductPage = ({ data }) => {
     setvariants([])
     setfrontCameraSensors([])
     setfrontCameraVideoCapability('')
-    setfrontCameraVideoCapabilities([])
     setbackCameraSensors([])
     setbackCameraVideoCapability('')
-    setbackCameraVideoCapabilities([])
     setfeatured(false)
     setsupply(true)
   }
@@ -145,8 +141,8 @@ const AddProductPage = ({ data }) => {
       dimensions,
       featured,
       supply,
-      frontCamera: { sensor: frontCameraSensors, videoCapability: frontCameraVideoCapabilities },
-      backCamera: { sensor: backCameraSensors, videoCapability: backCameraVideoCapabilities }
+      frontCamera: { sensor: frontCameraSensors, videoCapability: frontCameraVideoCapability },
+      backCamera: { sensor: backCameraSensors, videoCapability: backCameraVideoCapability }
     }
     showConditionaly(category, ['smartPhone', 'tablet', 'laptop', 'smartWatch']) && (datas.variants = variants)
     !showConditionaly(category, ['smartPhone', 'tablet', 'laptop', 'smartWatch']) &&
@@ -163,7 +159,7 @@ const AddProductPage = ({ data }) => {
       }
     } catch (error) {
       console.log(error.message)
-      toast.error('Something went wrong')
+      toast.error('Something went wrong!')
     }
   }
 
@@ -224,7 +220,7 @@ const AddProductPage = ({ data }) => {
           <InputGrpN
             name="images"
             label="Product Images"
-            //required={true}
+            required={true}
             type="file"
             accept="image/*"
             multiple={true}
@@ -282,20 +278,20 @@ const AddProductPage = ({ data }) => {
                 frontCameraSensors={frontCameraSensors}
                 setfrontCameraSensors={setfrontCameraSensors}
               />
-              <InputGroups
-                title="Front Camera Video Capability"
-                singleGetter={frontCameraVideoCapability}
-                singleSetter={setfrontCameraVideoCapability}
-                getter={frontCameraVideoCapabilities}
-                setter={setfrontCameraVideoCapabilities}
+              <InputGrpN
+                name="frontCameraVideoCapability"
+                label="Front Camera Video Capability"
+                placeholder="Front Camera Video Capability"
+                type="text"
+                onChange={(e) => setfrontCameraVideoCapability(e.target.value)}
               />
               <BackCameraSensors backCameraSensors={backCameraSensors} setbackCameraSensors={setbackCameraSensors} />
-              <InputGroups
-                title="Back Camera Video Capability"
-                singleGetter={backCameraVideoCapability}
-                singleSetter={setbackCameraVideoCapability}
-                getter={backCameraVideoCapabilities}
-                setter={setbackCameraVideoCapabilities}
+              <InputGrpN
+                name="backCameraVideoCapability"
+                label="Back Camera Video Capability"
+                placeholder="Back Camera Video Capability"
+                type="text"
+                onChange={(e) => setbackCameraVideoCapability(e.target.value)}
               />
             </>
           )}
