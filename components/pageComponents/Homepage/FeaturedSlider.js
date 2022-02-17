@@ -32,9 +32,7 @@ const FeaturedSlider = ({ featured }) => {
                 <h3 className="pt-3 pb-4">{product.name}</h3>
                 <h1>Starting from ${product.price}</h1>
                 <Link href={`/products/${product.slug}`}>
-                  <Button primary className="mt-3">
-                    See Details
-                  </Button>
+                  <button className="mt-3 button">See Details</button>
                 </Link>
               </div>
             </div>

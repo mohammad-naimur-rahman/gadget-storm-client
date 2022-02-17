@@ -5,14 +5,16 @@ import { API_URL } from '@/helpers/API'
 import { selectedSetter, setSelected } from '@/helpers/dashboard/product-details-helpers'
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
+import { FaCartPlus } from 'react-icons/fa'
+import { toast } from 'react-toastify'
 import ReactTooltip from 'react-tooltip'
-import { Button } from 'semantic-ui-react'
 const Carousel = require('react-responsive-carousel').Carousel
 
 const ProductDetailsPage = ({ product }) => {
   console.log(product)
   const hasIt = (property) => product.hasOwnProperty(proerty)
   const isNonEmpty = (elem) => product[elem].length !== 0
+  const isEmptyObj = (obj) => Object.keys(obj).length === 0
 
   const [pdVariants, setpdVariants] = useState([])
   const [selectedVariant, setselectedVariant] = useState({})
@@ -34,6 +36,18 @@ const ProductDetailsPage = ({ product }) => {
 
   const selectColor = (id) => {
     setSelected(id, pdColors, setpdColors, setselectedColor)
+  }
+
+  const addToCart = () => {
+    if (isEmptyObj(selectedVariant)) {
+      toast.error('Please, select a variant first!')
+      return
+    }
+    if (isEmptyObj(selectedColor)) {
+      toast.error('Please, select a color first!')
+      return
+    }
+    toast.success('Product successfully added to cart!')
   }
 
   //console.log(product)
@@ -70,7 +84,7 @@ const ProductDetailsPage = ({ product }) => {
                         key={vr.id}
                         className={`variant-card ${
                           vr.selected ? 'variant-card-selected' : ''
-                        } p-3 p-lg-4 shadow shadow-sm bg-white`}
+                        } p-3 shadow shadow-sm bg-white`}
                         onClick={() => selectVariant(vr._id)}
                       >
                         <div className="d-flex icon-value align-items-center py-1">
@@ -106,7 +120,7 @@ const ProductDetailsPage = ({ product }) => {
                             {vr.discount && (
                               <div className="d-flex negative-margin">
                                 <p className="small text-danger ps-2">
-                                  <s>{vr.basePrice}</s>
+                                  <s>${vr.basePrice}</s>
                                 </p>
                                 {vr.discount.includes('%') ? (
                                   <p className="small text-success ps-2">{vr.discount} off</p>
@@ -142,9 +156,9 @@ const ProductDetailsPage = ({ product }) => {
                   </div>
                 </>
               )}
-              <Button color="blue" className="mt-4">
-                Add to cart
-              </Button>
+              <button className="mt-5 button" onClick={addToCart}>
+                <FaCartPlus /> Add to cart
+              </button>
             </div>
           </div>
         </div>
@@ -165,12 +179,3 @@ export async function getServerSideProps({ params }) {
 }
 
 export default ProductDetailsPage
-
-export const IconValue = (children, value) => {
-  return (
-    <div className="d-flex flex-column icon-value justify-content-center align-items-center">
-      {children}
-      <h4>{value}</h4>
-    </div>
-  )
-}

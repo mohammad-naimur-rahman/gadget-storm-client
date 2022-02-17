@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaFacebookSquare, FaHome } from 'react-icons/fa'
+import { FaFacebookSquare, FaHeart, FaHome } from 'react-icons/fa'
 import data from '@/data/categories.json'
 import Link from 'next/link'
 import ShareLink from 'react-facebook-share-link'
@@ -27,13 +27,21 @@ const BreadCrumb = ({ product }) => {
           <a>{product.name}</a>
         </Link>
       </div>
-      <ShareLink link={sharableLink}>
-        {(link) => (
-          <a href={link} target="_blank" rel="noreferrer">
-            Share this product on <FaFacebookSquare />
-          </a>
-        )}
-      </ShareLink>
+      <div className="d-flex align-items-center">
+        <a className="cursor-pointer color-primary me-5 fw-bold p-2 border border-primary border-1 rounded rounded-pill">
+          Add to wishlist{' '}
+          <span className="text-danger">
+            <FaHeart />
+          </span>
+        </a>
+        <ShareLink link={sharableLink}>
+          {(link) => (
+            <a href={link} target="_blank" rel="noreferrer">
+              Share this product on <FaFacebookSquare />
+            </a>
+          )}
+        </ShareLink>
+      </div>
     </div>
   )
 }

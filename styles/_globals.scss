@@ -103,3 +103,23 @@ img {
 .negative-margin {
   margin-bottom: -10px !important;
 }
+
+.button {
+  display: inline-block;
+  outline: 0;
+  border: none;
+  vertical-align: baseline;
+  color: $color-white !important;
+  font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  padding: 15px 40px;
+  text-transform: none;
+  text-shadow: none;
+  font-weight: 700;
+  line-height: 1em;
+  background-color: $color-primary;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: $color-primary-dark;
+  }
+}
