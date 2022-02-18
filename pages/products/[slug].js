@@ -50,7 +50,7 @@ const ProductDetailsPage = ({ product }) => {
     toast.success('Product successfully added to cart!')
   }
 
-  //console.log(product)
+  console.log(pdColors)
   return (
     <Layout>
       <Categories />
@@ -72,9 +72,9 @@ const ProductDetailsPage = ({ product }) => {
                 {product.brand} {product.name}
               </h1>
               <h2 className="py-3">
-                {product.variants ? <span>Starts from</span> : <span>Price: </span>} ${product.price}
+                {product.variants.length > 0 ? <span>Starts from</span> : <span>Price: </span>} ${product.price}
               </h2>
-              {product.variants && (
+              {product.variants.length > 0 && (
                 <>
                   {/* ---VARIANTS--- */}
                   <h3 className="pt-4 pb-3">Choose Variant</h3>
@@ -137,7 +137,7 @@ const ProductDetailsPage = ({ product }) => {
                 </>
               )}
 
-              {isNonEmpty('colors') && (
+              {pdColors && (
                 <>
                   <h3 className="pt-4 pb-3">Choose Color</h3>
                   <div className="d-flex flex-wrap w-100 align-items-center color-card-holder">
