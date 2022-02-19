@@ -15,6 +15,7 @@ import axios from 'axios'
 import { API_URL } from '@/helpers/API'
 import { toast } from 'react-toastify'
 import Colors from '@/components/pageComponents/Dashboard/AddProductPage/Colors'
+import ReactMarkdown from 'react-markdown'
 
 const AddProductPage = ({ data }) => {
   const {
@@ -32,6 +33,7 @@ const AddProductPage = ({ data }) => {
     price: 0
   })
 
+  const [description, setdescription] = useState('')
   const [image, setimage] = useState([])
   const [showImgPreview, setshowImgPreview] = useState(false)
   const [descriptionImage, setdescriptionImage] = useState([])
@@ -86,6 +88,7 @@ const AddProductPage = ({ data }) => {
   const [supply, setsupply] = useState(true)
 
   const resetOtherValues = () => {
+    setdescription('')
     setimage([])
     setdescriptionImage([])
     setpriceSchema({
@@ -141,6 +144,7 @@ const AddProductPage = ({ data }) => {
       dimensions,
       featured,
       supply,
+      description,
       frontCamera: { sensor: frontCameraSensors, videoCapability: frontCameraVideoCapability },
       backCamera: { sensor: backCameraSensors, videoCapability: backCameraVideoCapability }
     }
@@ -220,7 +224,7 @@ const AddProductPage = ({ data }) => {
           <InputGrpN
             name="images"
             label="Product Images"
-            required={true}
+            //required={true}
             type="file"
             accept="image/*"
             multiple={true}
@@ -250,18 +254,32 @@ const AddProductPage = ({ data }) => {
               ))}
             </div>
           )}
-          <div className="d-flex flex-column mb-3">
-            <div className="d-flex">
-              <label htmlFor="description">
-                Description* <span>&nbsp;</span> :
-              </label>
-              <textarea
-                id="description"
-                cols="60"
-                rows="10"
-                {...register('description', { required: true })}
-                placeholder="Example: Charging: wireless \n Battery: 3000mAh \n Display: 6.5 inches \n Processor: Snapdragon 855 \n RAM: 4GB \n Storage: 64GB"
-              ></textarea>
+          <div className="row">
+            <div className="col-md-8 d-flex flex-column mb-3">
+              <div className="d-flex">
+                <label htmlFor="description">
+                  Description* <span>&nbsp;</span> :
+                </label>
+                <textarea
+                  id="description"
+                  cols="60"
+                  rows="10"
+                  required="true"
+                  onChange={(e) => setdescription(e.target.value)}
+                  placeholder="Ex: <div>
+                  <h3 className='header'>Description header 1</h3>
+                  <h4>Description sub header 1</h4>
+                  <p>Description paragraph 1</p>
+                  <hr />
+                  <h3 className='header'>Description header 2</h3>
+                  ...
+                </div>"
+                ></textarea>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <h3 className="py-3">Description Preview</h3>
+              <ReactMarkdown>{description}</ReactMarkdown>
             </div>
           </div>
           <InputGroups

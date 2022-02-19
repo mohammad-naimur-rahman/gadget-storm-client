@@ -159,6 +159,7 @@ const ProductDetailsPage = ({ product }) => {
               <button className="mt-5 button" onClick={addToCart}>
                 <FaCartPlus /> Add to cart
               </button>
+              {/* <div dangerouslySetInnerHTML={{ __html: product.description }}></div> */}
             </div>
           </div>
         </div>
