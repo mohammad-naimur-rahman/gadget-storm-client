@@ -34,10 +34,12 @@
 .d-layout-content {
   margin-top: 60px;
   padding-left: 270px;
+  width: calc(100% - 270px);
 }
 
 .content-collapsed {
   padding-left: 80px;
+  width: calc(100% - 80px);
 }
 
 .fixed-collapsed {

@@ -170,7 +170,7 @@ const AddProductPage = ({ data }) => {
   return (
     <DLayout className="p-4">
       <div className="d-flex">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className="w-100">
           <h2>Add Product</h2>
           <InputSelect label="Choose Category :" name="category" getter={category} setter={setcategory}>
             {data?.map((item) => (
@@ -266,19 +266,21 @@ const AddProductPage = ({ data }) => {
                   rows="10"
                   required="true"
                   onChange={(e) => setdescription(e.target.value)}
-                  placeholder="Ex: <div>
-                  <h3 className='header'>Description header 1</h3>
-                  <h4>Description sub header 1</h4>
-                  <p>Description paragraph 1</p>
-                  <hr />
-                  <h3 className='header'>Description header 2</h3>
-                  ...
-                </div>"
+                  placeholder="Ex:
+                  ### Description Header
+                  * Good product
+                  * Fast charging
+                  "
                 ></textarea>
               </div>
+              <p className="py-2 text-secondary">
+                <i>
+                  Use <span className="text-black fw-bold">Markdown</span> for description
+                </i>
+              </p>
             </div>
             <div className="col-md-4">
-              <h3 className="py-3">Description Preview</h3>
+              <h3 className="pb-3">Description Preview</h3>
               <ReactMarkdown>{description}</ReactMarkdown>
             </div>
           </div>
