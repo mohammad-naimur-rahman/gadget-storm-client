@@ -1,19 +1,11 @@
 export const selectedSetter = (elem, setter) => {
-  if (elem) {
-    if (elem.length === 1) {
-      const obj = [elem[0]]
-      setter([
-        {
-          ...obj,
-          selected: true
-        }
-      ])
-    } else {
-      const newArr = elem.map((color) => {
+  let newArr;
+  if (elem)  {
+      newArr = elem.map((color) => {
         return { ...color, selected: false }
       })
+      newArr[0].selected = true
       setter(newArr)
-    }
   }
 }
 

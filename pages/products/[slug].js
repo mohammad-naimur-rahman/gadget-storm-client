@@ -2,18 +2,19 @@ import Layout from '@/components/common/Layout'
 import Categories from '@/components/pageComponents/Homepage/Categories'
 import BreadCrumb from '@/components/pageComponents/ProductDetailsPage/BreadCrumb'
 import { API_URL } from '@/helpers/API'
-import { selectedSetter, setSelected } from '@/helpers/dashboard/product-details-helpers'
+import { selectedSetter, setSelected } from '@/helpers/product-details-helpers'
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { FaCartPlus } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import ReactTooltip from 'react-tooltip'
 const Carousel = require('react-responsive-carousel').Carousel
+import ReactMarkdown from 'react-markdown'
 
 const ProductDetailsPage = ({ product }) => {
   console.log(product)
   const hasIt = (property) => product.hasOwnProperty(proerty)
-  const isNonEmpty = (elem) => product[elem].length !== 0
+  const isNonEmpty = (elem) => elem.length !== 0
   const isEmptyObj = (obj) => Object.keys(obj).length === 0
 
   const [pdVariants, setpdVariants] = useState([])
@@ -72,9 +73,9 @@ const ProductDetailsPage = ({ product }) => {
                 {product.brand} {product.name}
               </h1>
               <h2 className="py-3">
-                {product.variants.length > 0 ? <span>Starts from</span> : <span>Price: </span>} ${product.price}
+                {isNonEmpty(product.variants) ? <span>Starts from</span> : <span>Price: </span>} ${product.price}
               </h2>
-              {product.variants.length > 0 && (
+              {isNonEmpty(product.variants) && (
                 <>
                   {/* ---VARIANTS--- */}
                   <h3 className="pt-4 pb-3">Choose Variant</h3>
@@ -113,31 +114,31 @@ const ProductDetailsPage = ({ product }) => {
                             </h3>
                           </div>
                         )}
-                        <div className="d-flex icon-value align-items-center pb-1 pt-3">
-                          <img src="/pages/productDetails/price.png" />
+                      </div>
+                    ))}
+                  </div>
+                  <div className="d-flex icon-value align-items-center pb-1 pt-3">
+                          <h2>Price: </h2>
                           <div className="d-flex flex-column">
-                            <h2 className="ms-3">${vr.price}</h2>
-                            {vr.discount && (
+                            <h2 className="ms-3">${selectedVariant.price}</h2>
+                            {selectedVariant.discount && (
                               <div className="d-flex negative-margin">
                                 <p className="small text-danger ps-2">
-                                  <s>${vr.basePrice}</s>
+                                  <s>${selectedVariant.basePrice}</s>
                                 </p>
-                                {vr.discount.includes('%') ? (
-                                  <p className="small text-success ps-2">{vr.discount} off</p>
+                                {selectedVariant.discount.includes('%') ? (
+                                  <p className="small text-success ps-2">{selectedVariant.discount} off</p>
                                 ) : (
-                                  <p className="small text-success ps-2">${vr.discount} off</p>
+                                  <p className="small text-success ps-2">${selectedVariant.discount} off</p>
                                 )}
                               </div>
                             )}
                           </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>
                 </>
               )}
 
-              {pdColors && (
+              {isNonEmpty(product.colors) && (
                 <>
                   <h3 className="pt-4 pb-3">Choose Color</h3>
                   <div className="d-flex flex-wrap w-100 align-items-center color-card-holder">
@@ -159,7 +160,7 @@ const ProductDetailsPage = ({ product }) => {
               <button className="mt-5 button" onClick={addToCart}>
                 <FaCartPlus /> Add to cart
               </button>
-              {/* <div dangerouslySetInnerHTML={{ __html: product.description }}></div> */}
+              {/* <ReactMarkdown>{product.description}</ReactMarkdown> */}
             </div>
           </div>
         </div>

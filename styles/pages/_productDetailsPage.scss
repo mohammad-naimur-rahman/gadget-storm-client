@@ -31,19 +31,16 @@
 
 .variant-card {
   width: 160px;
-  height: 150px;
   cursor: pointer;
   transition: all 0.3s;
   border: 1px solid transparent;
 
   @media (max-width: $breakpoint-lg) {
     width: 130px;
-    height: 170px;
   }
 
   @media (max-width: $breakpoint-md) {
     width: 160px;
-    height: 150px;
   }
 
   &:hover {
@@ -52,7 +49,7 @@
 
   &-selected {
     box-shadow: $box-shadow;
-    border: 1px solid $color-black-3;
+    border: 1px solid $color-primary;
   }
 }
 

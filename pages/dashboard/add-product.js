@@ -129,6 +129,7 @@ const AddProductPage = ({ data }) => {
   }
 
   const onSubmit = async (data) => {
+    console.log(category)
     const datas = {
       ...data,
       category,
