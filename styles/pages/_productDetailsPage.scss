@@ -80,3 +80,12 @@
     border: 5px solid $color-white;
   }
 }
+
+.button-alt {
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: $color-primary;
+    color: $color-white;
+  }
+}

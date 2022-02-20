@@ -28,9 +28,9 @@ const BreadCrumb = ({ product }) => {
         </Link>
       </div>
       <div className="d-flex align-items-center">
-        <a className="cursor-pointer color-primary me-5 fw-bold p-2 border border-primary border-1 rounded rounded-pill">
+        <a className="cursor-pointer color-primary me-5 fw-bold p-2 border border-primary border-1 rounded rounded-pill button-alt">
           Add to wishlist{' '}
-          <span className="text-danger">
+          <span className="text-danger ms-1">
             <FaHeart />
           </span>
         </a>

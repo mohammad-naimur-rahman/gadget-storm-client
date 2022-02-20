@@ -33,8 +33,8 @@ const Navbar = () => {
           </Menu.Item>
           <Menu.Item>
             <Navlink href="/compare">
-              <Button icon color="teal">
-                <Icon name="chart bar" />
+              <Button icon color="red">
+                <Icon name="heart" />
               </Button>
             </Navlink>
           </Menu.Item>
