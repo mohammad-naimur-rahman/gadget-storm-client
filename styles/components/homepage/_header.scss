@@ -59,6 +59,12 @@
   height: 150px;
   border-radius: 10px;
   cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 3px 5px 8px rgba($color-primary, 0.3) !important;
+  }
 
   img {
     max-width: 60px;

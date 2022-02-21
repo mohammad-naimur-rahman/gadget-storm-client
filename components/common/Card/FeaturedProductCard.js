@@ -29,7 +29,7 @@ const FeaturedProductCard = ({ pd }) => {
       <div className="pt-3 d-flex justify-content-between align-items-center featured-product-card__price">
         <h4>Starting from</h4>
         <div className="d-flex flex-column justify-content-center align-items-center">
-        <h3 className="pt-0 mt-0">${pd.price}</h3>
+          <h3 className="pt-0 mt-0">${pd.price}</h3>
           {pd.discount && (
             <div className="d-flex negative-margin-top">
               <p className="text-danger">
@@ -42,7 +42,6 @@ const FeaturedProductCard = ({ pd }) => {
               )}
             </div>
           )}
-          
         </div>
       </div>
     </div>
