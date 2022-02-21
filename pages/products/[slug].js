@@ -58,16 +58,16 @@ const ProductDetailsPage = ({ product }) => {
       <div className="container">
         <BreadCrumb product={product} />
         <div className="row">
-          <div className="col-md-5">
+          <div className="col-lg-5">
             <Carousel showArrows={true} swipeable={true} emulateTouch={true}>
-              {product.images.map((image) => (
-                <div key={image}>
+              {product.images.map((image, i) => (
+                <div key={i}>
                   <img src={image} alt={product.name} />
                 </div>
               ))}
             </Carousel>
           </div>
-          <div className="col-md-7">
+          <div className="col-lg-7">
             <div className="p-2 p-md-3 p-lg-5">
               <h1 className="color-primary">
                 {product.brand} {product.name}
@@ -85,7 +85,7 @@ const ProductDetailsPage = ({ product }) => {
                         key={vr.id}
                         className={`variant-card ${
                           vr.selected ? 'variant-card-selected' : ''
-                        } p-3 shadow shadow-sm bg-white`}
+                        } px-2 py-1 shadow shadow-sm bg-white`}
                         onClick={() => selectVariant(vr._id)}
                       >
                         <div className="d-flex icon-value align-items-center py-1">
@@ -118,23 +118,23 @@ const ProductDetailsPage = ({ product }) => {
                     ))}
                   </div>
                   <div className="d-flex icon-value align-items-center pb-1 pt-3">
-                          <h2>Price: </h2>
-                          <div className="d-flex flex-column">
-                            <h2 className="ms-3">${selectedVariant.price}</h2>
-                            {selectedVariant.discount && (
-                              <div className="d-flex negative-margin">
-                                <p className="small text-danger ps-2">
-                                  <s>${selectedVariant.basePrice}</s>
-                                </p>
-                                {selectedVariant.discount.includes('%') ? (
-                                  <p className="small text-success ps-2">{selectedVariant.discount} off</p>
-                                ) : (
-                                  <p className="small text-success ps-2">${selectedVariant.discount} off</p>
-                                )}
-                              </div>
-                            )}
-                          </div>
+                    <h2>Price: </h2>
+                    <div className="d-flex flex-column">
+                      <h2 className="ms-3">${selectedVariant.price}</h2>
+                      {selectedVariant.discount && (
+                        <div className="d-flex negative-margin">
+                          <p className="small text-danger ps-2">
+                            <s>${selectedVariant.basePrice}</s>
+                          </p>
+                          {selectedVariant.discount.includes('%') ? (
+                            <p className="small text-success ps-2">{selectedVariant.discount} off</p>
+                          ) : (
+                            <p className="small text-success ps-2">${selectedVariant.discount} off</p>
+                          )}
                         </div>
+                      )}
+                    </div>
+                  </div>
                 </>
               )}
 
@@ -156,6 +156,22 @@ const ProductDetailsPage = ({ product }) => {
                     ))}
                   </div>
                 </>
+              )}
+              {!isNonEmpty(product.variants) && (
+                <div>
+                  {isNonEmpty(product.features) && (
+                    <>
+                      <h3 className="pt-4 pb-3">Features</h3>
+                      <ul className="features-list">
+                        {product.features.map((feature) => (
+                          <li className="py-2" key={feature}>
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+                    </>
+                  )}
+                </div>
               )}
               <button className="mt-5 button" onClick={addToCart}>
                 <FaCartPlus /> Add to cart

@@ -30,18 +30,10 @@
 }
 
 .variant-card {
-  width: 160px;
+  width: 130px;
   cursor: pointer;
   transition: all 0.3s;
   border: 1px solid transparent;
-
-  @media (max-width: $breakpoint-lg) {
-    width: 130px;
-  }
-
-  @media (max-width: $breakpoint-md) {
-    width: 160px;
-  }
 
   &:hover {
     box-shadow: $box-shadow;
@@ -87,5 +79,25 @@
   &:hover {
     background-color: $color-primary;
     color: $color-white;
+  }
+}
+
+.features-list {
+  li {
+    position: relative;
+    list-style: none;
+    margin-left: 10px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 7px;
+      left: -35px;
+      width: 25px;
+      height: 25px;
+      background-image: url(../../public/pages/productDetails/list-style.png);
+      background-size: cover;
+      background-position: center center;
+    }
   }
 }
