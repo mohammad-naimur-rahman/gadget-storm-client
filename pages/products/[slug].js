@@ -180,6 +180,8 @@ const ProductDetailsPage = ({ product }) => {
             </div>
           </div>
         </div>
+        {isNonEmpty(product.descriptionImages) &&
+          product.descriptionImages.map((img) => <img src={img} className="img-fluid" alt={img} />)}
       </div>
     </Layout>
   )
