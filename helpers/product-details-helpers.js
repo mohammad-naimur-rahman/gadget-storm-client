@@ -1,11 +1,11 @@
-export const selectedSetter = (elem, setter) => {
+export const selectedSetter = (elem, groupSetter) => {
   let newArr
   if (elem.length > 0) {
     newArr = elem.map((color) => {
       return { ...color, selected: false }
     })
     newArr[0].selected = true
-    setter(newArr)
+    groupSetter(newArr)
   }
 }
 

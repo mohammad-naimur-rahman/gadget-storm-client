@@ -18,10 +18,10 @@ const ProductDetailsPage = ({ product }) => {
   const isEmptyObj = (obj) => Object.keys(obj).length === 0
 
   const [pdVariants, setpdVariants] = useState([])
-  const [selectedVariant, setselectedVariant] = useState({})
+  const [selectedVariant, setselectedVariant] = useState(product.variants[0])
 
   const [pdColors, setpdColors] = useState([])
-  const [selectedColor, setselectedColor] = useState({})
+  const [selectedColor, setselectedColor] = useState(product.colors[0])
 
   useEffect(() => {
     selectedSetter(product.variants, setpdVariants)
@@ -181,7 +181,7 @@ const ProductDetailsPage = ({ product }) => {
           </div>
         </div>
         {isNonEmpty(product.descriptionImages) &&
-          product.descriptionImages.map((img) => <img src={img} className="img-fluid" alt={img} />)}
+          product.descriptionImages.map((img) => <img key={img} src={img} className="img-fluid" alt={img} />)}
       </div>
     </Layout>
   )
