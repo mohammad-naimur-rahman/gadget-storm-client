@@ -53,7 +53,7 @@ const ProductDetailsPage = ({ product }) => {
 
   console.log(pdColors)
   return (
-    <Layout>
+    <Layout title={`${product.brand} ${product.name} | Gadget Storm`}>
       <Categories />
       <div className="container">
         <BreadCrumb product={product} />
@@ -180,8 +180,36 @@ const ProductDetailsPage = ({ product }) => {
             </div>
           </div>
         </div>
-        {isNonEmpty(product.descriptionImages) &&
-          product.descriptionImages.map((img) => <img key={img} src={img} className="img-fluid" alt={img} />)}
+
+        <h3 className="py-2">Description:</h3>
+        <ReactMarkdown>{product.description}</ReactMarkdown>
+
+        {isNonEmpty(product.descriptionImages) && (
+          <img src={product.descriptionImages[0]} className="w-100 mb-4" alt={product.descriptionImages[0]} />
+        )}
+
+        {isNonEmpty(product.features) && (
+          <>
+            <h3 className="pt-4 pb-3">Features</h3>
+            <ul className="features-list">
+              {product.features.map((feature) => (
+                <li className="py-2" key={feature}>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+
+        {isNonEmpty(product.descriptionImages) && (
+          <>
+            {product.descriptionImages.map((image, i) => (
+              <>
+                {i !== 0 && <img key={image} className="w-100 mb-4" src={image} className="w-100 mb-4" alt={image} />}
+              </>
+            ))}
+          </>
+        )}
       </div>
     </Layout>
   )
