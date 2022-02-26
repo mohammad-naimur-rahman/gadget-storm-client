@@ -185,7 +185,13 @@ const ProductDetailsPage = ({ product }) => {
         <ReactMarkdown>{product.description}</ReactMarkdown>
 
         {isNonEmpty(product.descriptionImages) && (
-          <img src={product.descriptionImages[0]} className="w-100 mb-4" alt={product.descriptionImages[0]} />
+          <div className="row">
+            {product.descriptionImages.map((img) => (
+              <div className="col-md-4" key={img}>
+                <img src={img} alt={product.name} className="description-img img-fluid p-2" />
+              </div>
+            ))}
+          </div>
         )}
 
         {isNonEmpty(product.features) && (
@@ -198,16 +204,6 @@ const ProductDetailsPage = ({ product }) => {
                 </li>
               ))}
             </ul>
-          </>
-        )}
-
-        {isNonEmpty(product.descriptionImages) && (
-          <>
-            {product.descriptionImages.map((image, i) => (
-              <>
-                {i !== 0 && <img key={image} className="w-100 mb-4" src={image} className="w-100 mb-4" alt={image} />}
-              </>
-            ))}
           </>
         )}
       </div>

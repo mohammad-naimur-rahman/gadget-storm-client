@@ -51,39 +51,44 @@ export const handlePrice = (e, priceSchema, setpriceSchema) => {
   setpriceSchema(inputFields)
 }
 
-export const handleImageUpload = (e, limit, imgArrSetter, showImgSetter) => {
+export const handleImageUpload = async (e, limit, imgArrSetter, showImgSetter) => {
   imgArrSetter([])
   const formData = new FormData()
-  const img = e.target.files
+  const images = e.target.files
 
   const imgarr = []
 
-  if (img.length > limit) {
+  if (images.length > limit) {
     toast.error(`You can only upload ${limit} images`)
     return
   }
   showImgSetter(false)
   toast.info('Uploading image...')
-  for (let i = 0; i < img.length; i++) {
-    formData.append('file', img[i])
-    formData.append('upload_preset', process.env.NEXT_PUBLIC_UPLOAD_PRESET)
-    ;(async () => {
-      try {
-        const res = await axios.post(
-          `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUD_NAME}/image/upload`,
-          formData
-        )
-        imgarr.push(res.data.secure_url)
-        imgArrSetter(imgarr)
-        if (i === img.length - 1) {
-          toast.success('All images are uploaded')
-          showImgSetter(true)
-        }
-      } catch (error) {
-        toast.error(error.message)
-      }
-    })()
+
+  const imgArr = Array.from(images)
+
+  const uploadImg = async (i) => {
+    try {
+      formData.append('file', i)
+      formData.append('upload_preset', process.env.NEXT_PUBLIC_UPLOAD_PRESET)
+      const res = await axios.post(
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUD_NAME}/image/upload`,
+        formData
+      )
+      imgarr.push(res.data.secure_url)
+    } catch (error) {
+      toast.error(error.message)
+    }
   }
+
+  const promises = imgArr.map((i) => {
+    return uploadImg(i)
+  })
+
+  await Promise.all(promises)
+  imgArrSetter(imgarr)
+  toast.success('All images are uploaded')
+  showImgSetter(true)
 }
 
 export const handleChange = (e, getter, setter) => {

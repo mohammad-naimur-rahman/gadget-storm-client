@@ -256,7 +256,7 @@ const AddProductPage = ({ data }) => {
             </div>
           )}
           <div className="row">
-            <div className="col-md-8 d-flex flex-column mb-3">
+            <div className="col-lg-8 d-flex flex-column mb-3">
               <div className="d-flex">
                 <label htmlFor="description">
                   Description* <span>&nbsp;</span> :
@@ -280,7 +280,7 @@ const AddProductPage = ({ data }) => {
                 </i>
               </p>
             </div>
-            <div className="col-md-4">
+            <div className="col-lg-4">
               <h3 className="pb-3">Description Preview</h3>
               <ReactMarkdown>{description}</ReactMarkdown>
             </div>
