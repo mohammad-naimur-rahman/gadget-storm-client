@@ -135,8 +135,6 @@ const AddProductPage = ({ data }) => {
     const datas = {
       ...data,
       category,
-      // images: image,
-      // descriptionImages: descriptionImage,
       coupon,
       colors,
       ports,
@@ -154,8 +152,8 @@ const AddProductPage = ({ data }) => {
     showConditionaly(category, ['smartPhone', 'tablet', 'laptop', 'smartWatch']) && (datas.variants = variants)
     !showConditionaly(category, ['smartPhone', 'tablet', 'laptop', 'smartWatch']) &&
       (datas = { ...datas, ...priceSchema })
-    if (isNonEmpty(image)) datas[images] = image
-    if (isNonEmpty(descriptionImage)) datas[descriptionImages] = descriptionImage
+    if (isNonEmpty(image)) datas.images = image
+    if (isNonEmpty(descriptionImage)) datas.descriptionImages = descriptionImage
     try {
       const response = await axios.post(`${API_URL}/products`, datas)
       console.log('PRODUCT_DATA', response?.data?.data?.data)
