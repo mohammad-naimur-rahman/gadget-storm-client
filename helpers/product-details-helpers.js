@@ -21,6 +21,8 @@ export const setSelected = (id, groupGetter, groupSetter, setter) => {
   groupSetter(newArr)
 }
 
-export const hasIt = (property) => product.hasOwnProperty(proerty)
-export const isNonEmpty = (elem) => elem.length !== 0
+export const isNonEmptyArr = (elem) => elem && elem.length !== 0
+export const isNonEmptyString = (elem) =>
+  elem && !elem.toString().includes('null') && !elem.toString().includes('undefined') && elem.length !== 0
 export const isEmptyObj = (obj) => Object.keys(obj).length === 0
+export const isNonEmptyObj = (obj) => Object.keys(obj).length !== 0

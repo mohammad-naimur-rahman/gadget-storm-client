@@ -6,6 +6,7 @@ import axios from 'axios'
 import ProductDetailsHeader from '@/components/pageComponents/ProductDetailsPage/ProductDetailsHeader'
 import ProductDetailsDescription from '@/components/pageComponents/ProductDetailsPage/ProductDetailsDescription'
 import ProductDetailsMenu from '@/components/pageComponents/ProductDetailsPage/ProductDetailsMenu'
+import ProductDetailsSpecs from '@/components/pageComponents/ProductDetailsPage/ProductDetailsSpecs'
 
 const ProductDetailsPage = ({ product }) => {
   console.log(product)
@@ -17,6 +18,7 @@ const ProductDetailsPage = ({ product }) => {
         <ProductDetailsHeader product={product} />
         <ProductDetailsMenu />
         <ProductDetailsDescription product={product} />
+        <ProductDetailsSpecs product={product} />
       </div>
     </Layout>
   )
