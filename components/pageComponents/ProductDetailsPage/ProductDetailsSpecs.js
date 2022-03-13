@@ -27,19 +27,20 @@ const ProductDetailsSpecs = ({ product }) => {
     camera,
     imageSensor
   } = product
+  console.log(product)
   return (
     <div id="specifications">
       <h3 className="py-2">Specifications</h3>
       <SingleShower thing={os} title="Operating System" />
       <ObjectShower thing={processor} title="Processor">
-        <ObjectChildShower title="Brand" thing={processor.brand} />
-        <ObjectChildShower title="Model" thing={processor.model} />
-        <ObjectChildShower title="Number of core" thing={processor.core} />
-        <ObjectChildShower title="Details" thing={processor.details} />
-        <ObjectChildShower title="GPU details" thing={processor.gpu} />
+        {processor && <ObjectChildShower title="Brand" thing={processor.brand} />}
+        {processor && <ObjectChildShower title="Model" thing={processor.model} />}
+        {processor && <ObjectChildShower title="Number of core" thing={processor.core} />}
+        {processor && <ObjectChildShower title="Details" thing={processor.details} />}
+        {processor && <ObjectChildShower title="GPU details" thing={processor.gpu} />}
       </ObjectShower>
       <ObjectShower thing={frontCamera} title="Front Camera">
-        {isNonEmptyArr(frontCamera.sensor) && (
+        {frontCamera && isNonEmptyArr(frontCamera.sensor) && (
           <div className="d-flex flex-wrap">
             {frontCamera.sensor.map((sensor) => (
               <div key={sensor.id} className="border px-3 py-2 me-2 mb-2">
@@ -54,9 +55,9 @@ const ProductDetailsSpecs = ({ product }) => {
           </div>
         )}
       </ObjectShower>
-      <SingleShower thing={frontCamera.videoCapability} title="Video Capability" />
+      {frontCamera && <SingleShower thing={frontCamera.videoCapability} title="Video Capability" />}
       <ObjectShower thing={backCamera} title="Back Camera">
-        {isNonEmptyArr(backCamera.sensor) && (
+        {backCamera && isNonEmptyArr(backCamera.sensor) && (
           <div className="d-flex flex-wrap">
             {backCamera.sensor.map((sensor) => (
               <div key={sensor.id} className="border px-3 py-2 me-2 mb-2">
@@ -71,7 +72,7 @@ const ProductDetailsSpecs = ({ product }) => {
           </div>
         )}
       </ObjectShower>
-      <SingleShower thing={backCamera.videoCapability} title="Video Capability" />
+      {backCamera && <SingleShower thing={backCamera.videoCapability} title="Video Capability" />}
       {isNonEmptyString(battery) && (
         <div className="d-flex py-2 align-items-center">
           <h4>Battery :</h4>
@@ -81,14 +82,14 @@ const ProductDetailsSpecs = ({ product }) => {
         </div>
       )}
       <ObjectShower thing={dimensions} title="Dimensions">
-        {isNonEmptyString(dimensions.length) && <span className="pe-1">{dimensions.length}</span>}
-        {isNonEmptyString(dimensions.width) && (
+        {dimensions && isNonEmptyString(dimensions.length) && <span className="pe-1">{dimensions.length}</span>}
+        {dimensions && isNonEmptyString(dimensions.width) && (
           <span className="pe-1">
             {' '}
             <span className="pe-1">x</span> {dimensions.width}
           </span>
         )}
-        {isNonEmptyString(dimensions.thickness) && (
+        {dimensions && isNonEmptyString(dimensions.thickness) && (
           <span>
             {' '}
             <span className="pe-1">x</span> {dimensions.thickness}
@@ -97,11 +98,11 @@ const ProductDetailsSpecs = ({ product }) => {
         <span className="ps-1">mm</span>
       </ObjectShower>
       <ObjectShower thing={display} title="Display">
-        <ObjectChildShower title="Type" thing={display.displayType} />
-        <ObjectChildShower title="Size" thing={`${display.displaySize} inch`} />
-        <ObjectChildShower title="Resolution" thing={display.displayResolution} />
-        <ObjectChildShower title="Screen to body ratio" thing={`${display.displayScreenToBodyRatio}%`} />
-        <ObjectChildShower title="Refresh rate" thing={`${display.refreshRate} Hz`} />
+        {display && <ObjectChildShower title="Type" thing={display.displayType} />}
+        {display && <ObjectChildShower title="Size" thing={`${display.displaySize} inch`} />}
+        {display && <ObjectChildShower title="Resolution" thing={display.displayResolution} />}
+        {display && <ObjectChildShower title="Screen to body ratio" thing={`${display.displayScreenToBodyRatio}%`} />}
+        {display && <ObjectChildShower title="Refresh rate" thing={`${display.refreshRate} Hz`} />}
       </ObjectShower>
       <SingleShower thing={weight} title="Weight" />
       <SingleShower thing={driver} title="Number of driver" />
