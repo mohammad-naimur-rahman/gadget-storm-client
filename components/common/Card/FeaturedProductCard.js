@@ -1,7 +1,8 @@
 import isNew from '@/helpers/isNew'
+import addToWishList from '@/utils/addToWishlist'
 import Link from 'next/link'
 import React from 'react'
-import { FaCartPlus, FaHeart } from 'react-icons/fa'
+import { FaHeart } from 'react-icons/fa'
 import ReactTooltip from 'react-tooltip'
 
 const FeaturedProductCard = ({ pd }) => {
@@ -12,13 +13,14 @@ const FeaturedProductCard = ({ pd }) => {
           <p>New</p>
         </div>
       )}
-      <div className="featured-product-card__add-to-wishlist" data-for="wishlist" data-tip="Add to wishlist">
+      <div
+        className="featured-product-card__add-to-wishlist"
+        data-for="wishlist"
+        data-tip="Add to wishlist"
+        onClick={() => addToWishList(pd)}
+      >
         <FaHeart />
         <ReactTooltip id="wishlist" place="bottom" />
-      </div>
-      <div className="featured-product-card__add-to-cart" data-for="cart" data-tip="Add to cart">
-        <FaCartPlus />
-        <ReactTooltip id="cart" place="bottom" />
       </div>
       <img src={pd.images[0]} alt={pd.name} />
       <Link href={`/products/${pd.slug}`}>
