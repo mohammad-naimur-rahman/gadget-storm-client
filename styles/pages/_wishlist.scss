@@ -1,0 +1,43 @@
+.wishlist-card {
+  border-radius: 12px;
+
+  div {
+    flex-grow: 1;
+  }
+
+  img {
+    max-width: 200px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+
+  button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: 50px;
+    font-weight: 300;
+  }
+
+  input[type='checkbox'] {
+    max-width: 100px;
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .first-group {
+    @media (max-width: $breakpoint-md) {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  .second-group {
+    @media (max-width: $breakpoint-md) {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}
