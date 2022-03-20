@@ -14,20 +14,12 @@ export const counterSlice = createSlice({
     remove: (state) => {
       state.count -= 1
     },
-    count: (state) => {
+    count: (state, action) => {
       state.count = action.payload
     }
   }
 })
 
-export const { add, remove } = counterSlice.actions
+export const { add, remove, count } = counterSlice.actions
 
 export default counterSlice.reducer
-
-if (typeof window !== 'undefined') {
-  const wishlist = localStorage.getItem('wishlist')
-  if (wishlist) {
-    const wishlistData = JSON.parse(wishlist)
-    store.dispatch(count(wishlistData.length))
-  }
-}
