@@ -127,3 +127,12 @@ img {
 .max-content {
   width: max-content !important;
 }
+
+.bg-green {
+  background-color: $color-green !important;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: $color-green-dark !important;
+  }
+}

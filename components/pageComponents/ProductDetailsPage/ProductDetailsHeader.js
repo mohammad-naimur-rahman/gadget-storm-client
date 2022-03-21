@@ -1,6 +1,6 @@
 import { selectedSetter, setSelected } from '@/helpers/product-details-helpers'
 import React, { useEffect, useState } from 'react'
-import { FaCartPlus } from 'react-icons/fa'
+import { FaCartPlus, FaShoppingBag } from 'react-icons/fa'
 import { Carousel } from 'react-responsive-carousel'
 import ReactTooltip from 'react-tooltip'
 
@@ -64,7 +64,7 @@ const ProductDetailsHeader = ({ product }) => {
           {isNonEmpty(product.variants) && (
             <>
               {/* ---VARIANTS--- */}
-              <h3 className="pt-4 pb-3">Choose Variant</h3>
+              <h3 className="pt-4 pb-3">Variants</h3>
               <div className="d-flex flex-wrap w-100 align-items-center variant-card-holder">
                 {pdVariants.map((vr) => (
                   <div
@@ -126,7 +126,7 @@ const ProductDetailsHeader = ({ product }) => {
 
           {isNonEmpty(product.colors) && (
             <>
-              <h3 className="pt-4 pb-3">Choose Color</h3>
+              <h3 className="pt-4 pb-3">Colors</h3>
               <div className="d-flex flex-wrap w-100 align-items-center color-card-holder">
                 {pdColors.map((color) => (
                   <div
@@ -159,8 +159,12 @@ const ProductDetailsHeader = ({ product }) => {
               )}
             </div>
           )}
-          <button className="mt-5 button" onClick={addToCart}>
-            <FaCartPlus /> Add to cart
+          <button className="mt-5 button align-items-center" onClick={addToCart}>
+            <FaCartPlus /> <span className="ps-2">Add to cart</span>
+          </button>
+          <button className="mt-5 button ms-3 bg-green" onClick={addToCart}>
+            <FaShoppingBag />
+            <span className="ps-2">Buy now</span>
           </button>
         </div>
       </div>
