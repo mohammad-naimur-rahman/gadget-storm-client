@@ -2,7 +2,8 @@
   border-radius: 12px;
 
   div {
-    flex-grow: 1;
+    //flex-grow: 1;
+    width: 100%;
   }
 
   img {
@@ -20,14 +21,16 @@
   }
 
   input[type='checkbox'] {
-    max-width: 100px;
+    margin: 0 50px;
+    max-width: 22px;
     width: 22px;
     height: 22px;
-    margin: 0;
     padding: 0;
   }
 
   .first-group {
+    width: auto;
+
     @media (max-width: $breakpoint-md) {
       width: 100%;
       justify-content: center;
@@ -38,6 +41,14 @@
     @media (max-width: $breakpoint-md) {
       width: 100%;
       justify-content: center;
+    }
+  }
+
+  .view-details-btn {
+    align-self: flex-start;
+
+    @media (max-width: $breakpoint-sm) {
+      align-self: center;
     }
   }
 }

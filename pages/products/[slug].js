@@ -9,7 +9,6 @@ import ProductDetailsMenu from '@/components/pageComponents/ProductDetailsPage/P
 import ProductDetailsSpecs from '@/components/pageComponents/ProductDetailsPage/ProductDetailsSpecs'
 
 const ProductDetailsPage = ({ product }) => {
-  console.log(product)
   return (
     <Layout title={`${product.brand} ${product.name} | Gadget Storm`}>
       <Categories />

@@ -1,11 +1,32 @@
 import isNew from '@/helpers/isNew'
-import addToWishList from '@/utils/addToWishlist'
+import { addToWishlist } from '@/store/reducers/wishlist'
 import Link from 'next/link'
 import React from 'react'
 import { FaHeart } from 'react-icons/fa'
+import { useDispatch } from 'react-redux'
+import { toast } from 'react-toastify'
 import ReactTooltip from 'react-tooltip'
 
 const FeaturedProductCard = ({ pd }) => {
+  const dispatch = useDispatch()
+
+  const handleAddToWishList = () => {
+    const wishlist = JSON.parse(localStorage.getItem('wishlist'))
+    if (wishlist) {
+      const isExist = wishlist.some((item) => item.id === pd.id)
+      if (isExist) {
+        toast.error('Product already added to wishlist')
+      } else {
+        localStorage.setItem('wishlist', wishlist ? JSON.stringify([...wishlist, pd]) : JSON.stringify([pd]))
+        dispatch(addToWishlist())
+        toast.success('Product added to wishlist!')
+      }
+    } else {
+      localStorage.setItem('wishlist', JSON.stringify([pd]))
+      dispatch(addToWishList())
+      toast.success('Product added to wishlist!')
+    }
+  }
   return (
     <div className="featured-product-card d-flex flex-column bg-white shadow shadow-sm p-3">
       {isNew(pd.createdAt) && (
@@ -17,7 +38,7 @@ const FeaturedProductCard = ({ pd }) => {
         className="featured-product-card__add-to-wishlist"
         data-for="wishlist"
         data-tip="Add to wishlist"
-        onClick={() => addToWishList(pd)}
+        onClick={handleAddToWishList}
       >
         <FaHeart />
         <ReactTooltip id="wishlist" place="bottom" />

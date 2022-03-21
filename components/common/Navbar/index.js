@@ -1,4 +1,4 @@
-import { count } from '@/store/reducers/wishlist'
+import { countWishlist } from '@/store/reducers/wishlist'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,12 +10,10 @@ const Navbar = () => {
   const wishlistState = useSelector((state) => state.wishlist)
   const [searchQuery, setsearchQuery] = useState('')
 
-  console.log(wishlistState.count)
-
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const wishlistLength = JSON.parse(localStorage.getItem('wishlist')).length
-      dispatch(count(wishlistLength))
+      dispatch(countWishlist(wishlistLength))
     }
   }, [dispatch])
 
@@ -42,7 +40,7 @@ const Navbar = () => {
             <Navlink href="/cart">
               <Button icon color="facebook" className="nav-popup">
                 <Icon name="cart" />
-                {wishlistState.count && wishlistState.count > 0 && <p>{wishlistState.count}</p>}
+                {wishlistState.count > 0 && <p>{wishlistState.count}</p>}
               </Button>
             </Navlink>
           </Menu.Item>
@@ -50,7 +48,7 @@ const Navbar = () => {
             <Navlink href="/wishlist">
               <Button icon color="red" className="nav-popup">
                 <Icon name="heart" />
-                {wishlistState.count && wishlistState.count > 0 && <p>{wishlistState.count}</p>}
+                {wishlistState.count > 0 && <p>{wishlistState.count}</p>}
               </Button>
             </Navlink>
           </Menu.Item>

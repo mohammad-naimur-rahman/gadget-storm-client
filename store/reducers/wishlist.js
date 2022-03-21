@@ -8,18 +8,18 @@ export const counterSlice = createSlice({
   name: 'wishlist',
   initialState,
   reducers: {
-    add: (state) => {
+    addToWishlist: (state) => {
       state.count += 1
     },
-    remove: (state) => {
+    removeFromWishlist: (state) => {
       state.count -= 1
     },
-    count: (state, action) => {
+    countWishlist: (state, action) => {
       state.count = action.payload
     }
   }
 })
 
-export const { add, remove, count } = counterSlice.actions
+export const { addToWishlist, removeFromWishlist, countWishlist } = counterSlice.actions
 
 export default counterSlice.reducer
