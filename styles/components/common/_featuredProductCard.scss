@@ -75,6 +75,36 @@
     }
   }
 
+  &:hover &__add-to-cart {
+    opacity: 1;
+  }
+
+  &__add-to-cart {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    top: 15px;
+    right: 55px;
+    padding: 5px;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+    color: $color-primary;
+    background-color: $color-white;
+    border: 1px solid currentColor;
+    transition: all 0.3s;
+    opacity: 0;
+
+    &:hover {
+      background-color: $color-primary;
+      color: $color-white;
+      border: 1px solid currentColor;
+    }
+  }
+
   &__new {
     position: absolute;
     top: 0px;

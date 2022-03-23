@@ -29,6 +29,11 @@
   h1 {
     color: $color-text;
   }
+
+  img {
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
 }
 
 .offer-card {

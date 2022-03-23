@@ -15,7 +15,7 @@ const FeaturedSlider = ({ featured }) => {
     autoplaySpeed: 4000,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: false,
     prevArrow: <ArrowMan />,
     nextArrow: <ArrowMan />
   }
@@ -24,10 +24,10 @@ const FeaturedSlider = ({ featured }) => {
     <div className="shadow shadow-sm bg-white">
       <Slider {...settings}>
         {featured?.map((product) => (
-          <div key={product.id}>
-            <div className="d-flex featured-slider-card">
-              <img src={product.images[0]} alt={product.name} className="w-50" />
-              <div className="w-100 d-flex flex-column justify-content-center align-items-center">
+          <div key={product.id} className="h-100">
+            <div className="d-flex featured-slider-card align-items-center h-100 w-100">
+              <img src={product.images[0]} alt={product.name} className="w-50 m-1" />
+              <div className="w-50 d-flex flex-column justify-content-center align-items-center">
                 <h2>{product.brand}</h2>
                 <h3 className="pt-3 pb-4">{product.name}</h3>
                 <h1>Starting from ${product.price}</h1>

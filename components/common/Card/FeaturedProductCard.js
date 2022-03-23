@@ -2,7 +2,7 @@ import isNew from '@/helpers/isNew'
 import { addToWishlist } from '@/store/reducers/wishlist'
 import Link from 'next/link'
 import React from 'react'
-import { FaHeart } from 'react-icons/fa'
+import { FaHeart, FaCartPlus } from 'react-icons/fa'
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import ReactTooltip from 'react-tooltip'
@@ -27,6 +27,8 @@ const FeaturedProductCard = ({ pd }) => {
       toast.success('Product added to wishlist!')
     }
   }
+
+  const handleAddTocart = () => {}
   return (
     <div className="featured-product-card d-flex flex-column bg-white shadow shadow-sm p-3">
       {isNew(pd.createdAt) && (
@@ -42,6 +44,15 @@ const FeaturedProductCard = ({ pd }) => {
       >
         <FaHeart />
         <ReactTooltip id="wishlist" place="bottom" />
+      </div>
+      <div
+        className="featured-product-card__add-to-cart"
+        data-for="cart"
+        data-tip="Add to cart"
+        onClick={handleAddTocart}
+      >
+        <FaCartPlus />
+        <ReactTooltip id="cart" place="bottom" />
       </div>
       <img src={pd.images[0]} alt={pd.name} />
       <Link href={`/products/${pd.slug}`}>

@@ -2,6 +2,7 @@ import Layout from '@/components/common/Layout'
 import WishlistCard from '@/components/pageComponents/Wishlist/WishlistCard'
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { FaCartPlus } from 'react-icons/fa'
 
 const WishlistPage = () => {
   const [wishlist, setwishlist] = useState([])
@@ -14,6 +15,9 @@ const WishlistPage = () => {
       setwishlist(wishListWithMark)
     }
   }, [])
+
+  const addToCart = () => {}
+
   return (
     <Layout title="Wishlist | Gadget Storm">
       <section className="container">
@@ -23,6 +27,12 @@ const WishlistPage = () => {
             {wishlist.map((el) => (
               <WishlistCard key={el.id} pd={el} setwishlist={setwishlist} />
             ))}
+            <div className="d-flex flex-column">
+              <button className="button bg-green mt-4 me-2 align-self-end shadow" onClick={addToCart}>
+                <FaCartPlus />
+                <span className="ps-2">Add to cart</span>
+              </button>
+            </div>
           </>
         ) : (
           <>

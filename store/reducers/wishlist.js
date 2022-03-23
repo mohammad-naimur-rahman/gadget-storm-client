@@ -4,7 +4,7 @@ const initialState = {
   count: 0
 }
 
-export const counterSlice = createSlice({
+export const wishlistSlice = createSlice({
   name: 'wishlist',
   initialState,
   reducers: {
@@ -20,6 +20,6 @@ export const counterSlice = createSlice({
   }
 })
 
-export const { addToWishlist, removeFromWishlist, countWishlist } = counterSlice.actions
+export const { addToWishlist, removeFromWishlist, countWishlist } = wishlistSlice.actions
 
-export default counterSlice.reducer
+export default wishlistSlice.reducer
