@@ -1,4 +1,5 @@
 import isNew from '@/helpers/isNew'
+import { addToCart } from '@/store/reducers/cart'
 import { addToWishlist } from '@/store/reducers/wishlist'
 import Link from 'next/link'
 import React from 'react'
@@ -15,7 +16,7 @@ const FeaturedProductCard = ({ pd }) => {
     if (wishlist) {
       const isExist = wishlist.some((item) => item.id === pd.id)
       if (isExist) {
-        toast.error('Product already added to wishlist')
+        toast.error('Product already added to wishlist!')
       } else {
         localStorage.setItem('wishlist', wishlist ? JSON.stringify([...wishlist, pd]) : JSON.stringify([pd]))
         dispatch(addToWishlist())
@@ -28,7 +29,23 @@ const FeaturedProductCard = ({ pd }) => {
     }
   }
 
-  const handleAddTocart = () => {}
+  const handleAddToCart = () => {
+    const cart = JSON.parse(localStorage.getItem('cart'))
+    if (cart) {
+      const isExist = cart.some((item) => item.id === pd.id)
+      if (isExist) {
+        toast.error('Product already added to Cart!')
+      } else {
+        localStorage.setItem('cart', cart ? JSON.stringify([...cart, pd]) : JSON.stringify([pd]))
+        dispatch(addToCart())
+        toast.success('Product added to cart!')
+      }
+    } else {
+      localStorage.setItem('cart', JSON.stringify([pd]))
+      dispatch(addToCart())
+      toast.success('Product added to cart!')
+    }
+  }
   return (
     <div className="featured-product-card d-flex flex-column bg-white shadow shadow-sm p-3">
       {isNew(pd.createdAt) && (
@@ -49,7 +66,7 @@ const FeaturedProductCard = ({ pd }) => {
         className="featured-product-card__add-to-cart"
         data-for="cart"
         data-tip="Add to cart"
-        onClick={handleAddTocart}
+        onClick={handleAddToCart}
       >
         <FaCartPlus />
         <ReactTooltip id="cart" place="bottom" />

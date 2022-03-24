@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
 import Slider from 'react-slick'
-import { Button } from 'semantic-ui-react'
 
 const ArrowMan = ({ className, style, onClick }) => {
   return <div className={className} style={{ ...style, display: 'block', background: 'red' }} onClick={onClick}></div>

@@ -8,7 +8,7 @@ const WishlistPage = () => {
   const [wishlist, setwishlist] = useState([])
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const wishlistEl = JSON.parse(localStorage.getItem('wishlist'))
+      const wishlistEl = JSON.parse(localStorage.getItem('wishlist')) || []
       const wishListWithMark = wishlistEl.map((el) => {
         return { ...el, selected: true }
       })
