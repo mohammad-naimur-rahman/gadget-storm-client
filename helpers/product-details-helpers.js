@@ -25,4 +25,12 @@ export const isNonEmptyArr = (elem) => elem && elem.length !== 0
 export const isNonEmptyString = (elem) =>
   elem && !elem.toString().includes('null') && !elem.toString().includes('undefined') && elem.length !== 0
 export const isEmptyObj = (obj) => Object.keys(obj).length === 0
-export const isNonEmptyObj = (obj) => obj && Object.keys(obj).length !== 0
+//export const isNonEmptyObj = (obj) => obj && Object.keys(obj).length !== 0
+
+// check if an object is empty
+export const isNonEmptyObj = (obj) => {
+  for (const key in obj) {
+    if (obj[key]) return true
+  }
+  return false
+}

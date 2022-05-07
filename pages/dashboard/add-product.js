@@ -16,6 +16,7 @@ import { API_URL } from '@/helpers/API'
 import { toast } from 'react-toastify'
 import Colors from '@/components/pageComponents/Dashboard/AddProductPage/Colors'
 import ReactMarkdown from 'react-markdown'
+import { isNonEmptyObj } from '@/helpers/product-details-helpers'
 
 const AddProductPage = ({ data }) => {
   const {
@@ -135,20 +136,24 @@ const AddProductPage = ({ data }) => {
     const datas = {
       ...data,
       category,
-      coupon,
+      //coupon,
       colors,
       ports,
       features,
       boxContents,
-      display,
-      processor,
-      dimensions,
+      //display,
+      //processor,
+      //dimensions,
       featured,
       supply,
       description,
       frontCamera: { sensor: frontCameraSensors, videoCapability: frontCameraVideoCapability },
       backCamera: { sensor: backCameraSensors, videoCapability: backCameraVideoCapability }
     }
+    if (isNonEmptyObj(processor)) datas.processor = processor
+    if (isNonEmptyObj(dimensions)) datas.dimensions = dimensions
+    if (isNonEmptyObj(display)) datas.display = display
+    if (isNonEmptyObj(coupon)) datas.coupon = coupon
     showConditionaly(category, ['smartPhone', 'tablet', 'laptop', 'smartWatch']) && (datas.variants = variants)
     !showConditionaly(category, ['smartPhone', 'tablet', 'laptop', 'smartWatch']) &&
       (datas = { ...datas, ...priceSchema })
