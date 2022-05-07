@@ -16,7 +16,7 @@ import { API_URL } from '@/helpers/API'
 import { toast } from 'react-toastify'
 import Colors from '@/components/pageComponents/Dashboard/AddProductPage/Colors'
 import ReactMarkdown from 'react-markdown'
-import { isNonEmptyObj } from '@/helpers/product-details-helpers'
+import { isNonEmptyArr, isNonEmptyObj } from '@/helpers/product-details-helpers'
 
 const AddProductPage = ({ data }) => {
   const {
@@ -132,18 +132,17 @@ const AddProductPage = ({ data }) => {
   }
 
   const onSubmit = async (data) => {
+    if (showConditionaly(category, ['smartPhone', 'tablet', 'laptop', 'smartWatch'])) {
+      if (!isNonEmptyArr(variants)) return toast.error('Please add atleast one variant')
+    }
     console.log(category)
     const datas = {
       ...data,
       category,
-      //coupon,
       colors,
       ports,
       features,
       boxContents,
-      //display,
-      //processor,
-      //dimensions,
       featured,
       supply,
       description,
