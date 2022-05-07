@@ -3,7 +3,7 @@ import React from 'react'
 
 const Products = ({ products }) => {
   return (
-    <div>
+    <div className="d-flex flex-wrap">
       {products.map((product) => (
         <FeaturedProductCard key={product.id} pd={product} />
       ))}

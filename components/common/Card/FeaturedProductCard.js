@@ -24,7 +24,7 @@ const FeaturedProductCard = ({ pd }) => {
       }
     } else {
       localStorage.setItem('wishlist', JSON.stringify([pd]))
-      dispatch(addToWishList())
+      dispatch(addToWishlist())
       toast.success('Product added to wishlist!')
     }
   }
@@ -47,7 +47,7 @@ const FeaturedProductCard = ({ pd }) => {
     }
   }
   return (
-    <div className="featured-product-card d-flex flex-column bg-white shadow shadow-sm p-3">
+    <div className="featured-product-card d-flex flex-column bg-white shadow shadow-sm p-3 m-2">
       {isNew(pd.createdAt) && (
         <div className="featured-product-card__new">
           <p>New</p>
