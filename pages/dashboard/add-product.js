@@ -135,7 +135,6 @@ const AddProductPage = ({ data }) => {
     if (showConditionaly(category, ['smartPhone', 'tablet', 'laptop', 'smartWatch'])) {
       if (!isNonEmptyArr(variants)) return toast.error('Please add atleast one variant')
     }
-    console.log(category)
     const datas = {
       ...data,
       category,

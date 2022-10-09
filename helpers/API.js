@@ -1,2 +1,2 @@
-export const API_URL = 'http://localhost:5000/api/v1'
-export const THIS_URL = 'http://localhost:3000'
+export const API_URL = process.env.NEXT_PUBLIC_API_URL
+export const THIS_URL = NEXT_PUBLIC_THIS_URL
