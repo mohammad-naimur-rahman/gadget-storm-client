@@ -5,10 +5,15 @@ const ProductsContainer = ({ products }) => {
   return (
     <div className="container">
       <div className="row">
-        <div className="col-md-3 border"></div>
-        <div className="col-md-9">
-          <Products products={products} />
-        </div>
+        {products.length ? (
+          <>
+            <div className="col-md-12">
+              <Products products={products} />
+            </div>
+          </>
+        ) : (
+          <h2 className="text-center pt-5 text-secondary">No Products Found!</h2>
+        )}
       </div>
     </div>
   )

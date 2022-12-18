@@ -16,7 +16,7 @@ const FeaturedProductCard = ({ pd }) => {
     if (wishlist) {
       const isExist = wishlist.some((item) => item.id === pd.id)
       if (isExist) {
-        toast.error('Product already added to wishlist!')
+        toast.info('Product already added to wishlist!')
       } else {
         localStorage.setItem('wishlist', wishlist ? JSON.stringify([...wishlist, pd]) : JSON.stringify([pd]))
         dispatch(addToWishlist())

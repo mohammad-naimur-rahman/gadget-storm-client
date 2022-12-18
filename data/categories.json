@@ -36,26 +36,27 @@
   },
   {
     "name": "DSLR Camera",
-    "link": "dslr"
+    "link": "dslr",
+    "sku": "dslr"
   },
   {
     "name": "Action Cam",
-    "link": "action-cam",
+    "link": "actionCam",
     "sku": "actionCam"
   },
   {
     "name": "Bluetooth Speaker",
-    "link": "bluetooth-speaker",
+    "link": "bluetoothSpeaker",
     "sku": "bluetoothSpeaker"
   },
   {
     "name": "Power Bank",
-    "link": "power-bank",
+    "link": "powerBank",
     "sku": "powerBank"
   },
   {
     "name": "Charger and Cables",
-    "link": "charger-cables",
+    "link": "chargerAndCables",
     "sku": "chargerAndCables"
   },
   {

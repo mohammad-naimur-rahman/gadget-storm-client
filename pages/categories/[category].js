@@ -3,7 +3,6 @@ import ProductsContainer from '@/components/pageComponents/Categories/ProductsCo
 import Categories from '@/components/pageComponents/Homepage/Categories'
 import { API_URL } from '@/helpers/API'
 import axios from 'axios'
-import React from 'react'
 
 const CategoryPage = ({ products }) => {
   return (

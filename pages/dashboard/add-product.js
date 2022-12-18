@@ -158,6 +158,7 @@ const AddProductPage = ({ data }) => {
     if (isNonEmpty(image)) datas.images = image
     if (isNonEmpty(descriptionImage)) datas.descriptionImages = descriptionImage
     try {
+      console.log("TRYING!")
       const response = await axios.post(`${API_URL}/products`, datas)
       console.log('PRODUCT_DATA', response?.data?.data?.data)
       if (response.status === 201) {
